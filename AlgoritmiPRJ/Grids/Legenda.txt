@@ -1,0 +1,8 @@
+Legenda tabella:
+        O = origine
+   ■ Nero = ostacolo
+ ■ Giallo = cella del contesto
+        + = cella del contesto (file)
+  ■ Rosso = cella del complemento
+        - = cella del complemento (file)
+        . = non ostacolo

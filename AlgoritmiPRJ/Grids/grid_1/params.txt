@@ -1,0 +1,6 @@
+Righe: 10
+Colonne: 20
+Percentuale ostacoli: 0.12
+Ostacoli generati: 24
+Seed: /
+Data generazione: Sun Jun 29 13:00:04 CEST 2025
