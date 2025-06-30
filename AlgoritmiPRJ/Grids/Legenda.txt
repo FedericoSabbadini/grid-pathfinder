@@ -1,8 +1,12 @@
 Legenda tabella:
-        O = origine
-   ■ Nero = ostacolo
- ■ Giallo = cella del contesto
-        + = cella del contesto (file)
-  ■ Rosso = cella del complemento
-        - = cella del complemento (file)
-        . = non ostacolo
+--> O = origine
+--> ■ Nero = ostacolo
+--> . = non ostacolo
+
+--> ■ Azzurro = cella del contesto
+--> ■ Azzurro Chiaro = cella frontiera del contesto
+--> + = cella del contesto (file)
+
+--> ■ Rosso = cella del complemento
+--> ■ Rosso Chiaro = cella frontiera del complemento
+--> - = cella del complemento (file)

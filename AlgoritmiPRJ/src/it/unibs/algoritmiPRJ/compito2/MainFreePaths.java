@@ -1,4 +1,5 @@
 package it.unibs.algoritmiPRJ.compito2;
+import it.unibs.algoritmiPRJ.compito1.Cell;
 import it.unibs.algoritmiPRJ.compito1.Grid;
 import it.unibs.algoritmiPRJ.utility.GestioneInput;
 import it.unibs.algoritmiPRJ.utility.loader.GridLoader;
@@ -18,10 +19,10 @@ public class MainFreePaths {
         	int numGrid = GestioneInput.getIntPosInput(">>> Numero file griglia da caricare: ");
         	String fileName = "Grids/grid_" + numGrid;
             Grid grid = (Grid) gridLoader.loadFile(fileName);
-            System.out.println("Griglia " + grid.getRows() + "x" + grid.getCols() + " caricata.\n");
+            System.out.println("Griglia " + grid.getRows() + "x" + grid.getCols() + " caricata.");
 
             // Imposta Origine
-            int[] origin = getValidCell(grid, "origine");
+            Cell origin = getValidCell(grid, "origine");
             FreePaths calculator = new FreePaths(grid, origin);
             System.out.println();
             
@@ -32,22 +33,22 @@ public class MainFreePaths {
                 System.out.println("3. Cambia origine");
                 System.out.println("0. Esci");
             	int choice = GestioneInput.getIntNonNegInput(">>> ");
+            	System.out.println();
 
                 switch (choice) {
                     case 1 -> {
                         if (origin == null) return;
                         
                         calculator.calculateContextAndComplement();
-                        pathsPrinter.print(calculator);
+                        System.out.print(pathsPrinter.print(calculator));
                         pathsPrinter.saveToFile(fileName, calculator);
-                        System.out.println("Contesto e Complemento salvati in: " + fileName);
                     }
                     case 2 -> {
                         if (origin == null) return;
-                        int[] destinazione = getValidCell(grid, "destinazione");
+                        Cell destinazione = getValidCell(grid, "destinazione");
                         if (destinazione == null) return;
                         
-                        double distance = calculator.calculateFreeDistance(destinazione[0], destinazione[1]);
+                        double distance = calculator.calculateFreeDistance(destinazione);
                         if (distance == -1) {
                             System.out.println("Nessun cammino libero possibile.\n");
                         } else {
@@ -57,10 +58,10 @@ public class MainFreePaths {
                     case 3 -> {
 						origin = getValidCell(grid, "nuova origine");
 						if (origin == null) return;
-						calculator.setOrigin(origin[0], origin[1]);
+						calculator.setOrigin(origin);
 					}
                     case 0 -> { 
-                        System.out.println("Contesto e Complemento salvati in: " + fileName);
+                        System.out.println("Chiusura di O salvata in: " + fileName);
                         return; 
                     }
                     default -> System.out.println("Scelta non valida.");
@@ -75,15 +76,21 @@ public class MainFreePaths {
     }
    
     
-    private static int[] getValidCell(Grid grid, String tipo) {
-        int row = GestioneInput.getIntNonNegInput(">>> Riga " + tipo + " (0-" + (grid.getRows()-1) + "): ");
-        int col = GestioneInput.getIntNonNegInput(">>> Colonna " + tipo + " (0-" + (grid.getCols()-1) + "): ");
-        
-        if (row < 0 || row >= grid.getRows() || col < 0 || col >= grid.getCols() || 
-            !grid.isTraversable(row, col)) {
-            System.out.println("Cella non valida.");
-            return null;
-        }
-        return new int[]{row, col};
+    private static Cell getValidCell(Grid grid, String tipo) {
+    	System.out.println("");
+    	int row, col, errorCount = 0;
+    	Cell cell;
+    	
+    	do {
+    	if (errorCount > 0) {
+			System.out.println("Errore: cella non valida o non attraversabile. Riprova.");
+		}
+        row = GestioneInput.getIntNonNegInput(">>> Riga " + tipo + " (0-" + (grid.getRows()-1) + "): ");
+        col = GestioneInput.getIntNonNegInput(">>> Colonna " + tipo + " (0-" + (grid.getCols()-1) + "): ");
+        cell = new Cell(row, col);
+		errorCount++;
+    	} while (row < 0 || row >= grid.getRows() || col < 0 || col >= grid.getCols() || !grid.isTraversable(cell));
+    		
+        return cell;
     }
 }

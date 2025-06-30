@@ -18,7 +18,7 @@ public class ParamsPrinter implements Printer {
 		String printedParams = print(oggetto);
 
 		try (PrintWriter writer = new PrintWriter(new FileWriter(filepath + "/params.txt"))) {
-			writer.println(printedParams);
+			writer.print(printedParams);
 		} catch (IOException e) {
 			throw new IOException("Errore durante il salvataggio dei parametri su file: " + e.getMessage());            
         }
@@ -34,7 +34,7 @@ public class ParamsPrinter implements Printer {
 		sb.append("Percentuale ostacoli: ").append(params.getObstacleRatio()).append("\n");
 		sb.append("Ostacoli generati: ").append(params.countObstacles()).append("\n");
 		sb.append("Seed: ").append(params.getSeed()).append("\n");
-		sb.append("Data generazione: ").append(new Date()).append("\n");
+		sb.append("Data generazione: ").append(new Date());
 		
 		return sb.toString();
 	}

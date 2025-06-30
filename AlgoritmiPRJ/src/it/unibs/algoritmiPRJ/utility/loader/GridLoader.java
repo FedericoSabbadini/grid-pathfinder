@@ -1,6 +1,8 @@
 package it.unibs.algoritmiPRJ.utility.loader;
 import java.io.File;
 import java.util.Scanner;
+
+import it.unibs.algoritmiPRJ.compito1.Cell;
 import it.unibs.algoritmiPRJ.compito1.GenerationParams;
 import it.unibs.algoritmiPRJ.compito1.Grid;
 import it.unibs.algoritmiPRJ.utility.Legenda;
@@ -26,7 +28,7 @@ public class GridLoader implements Loader {
                 for (int j = 0; j < cols; j++) {
                     String cellValue = scanner.next();
                     if (cellValue.equals(Legenda.OSTACOLO)) {
-                        grid.setObstacle(i, j);
+                        grid.setObstacle(new Cell(i, j));
                     }
                 }
             }

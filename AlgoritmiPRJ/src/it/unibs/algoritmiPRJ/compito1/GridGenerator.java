@@ -72,7 +72,7 @@ public class GridGenerator {
             // Converto da indice lineare a coordinate
             int row = indices[i] / cols;
             int col = indices[i] % cols;
-            grid.setObstacle(row, col);
+            grid.setObstacle(new Cell(row, col));
         }
         
         return grid;

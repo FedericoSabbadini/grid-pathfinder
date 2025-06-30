@@ -39,8 +39,10 @@ public class Grid {
 	 * @param col La colonna della cella da verificare.
 	 * @return true se la cella è attraversabile, false altrimenti.
 	 */
-    public boolean isTraversable(int row, int col) {
-        if (row < 0 || row >= rows || col < 0 || col >= cols) {
+    public boolean isTraversable(Cell cell) {
+    	int row = cell.getRow();
+    	int col = cell.getCol();
+        if (row < 0 || row >= getRows() || col < 0 || col >= getCols()) {
             return false;
         }
         return cells[row][col];
@@ -51,9 +53,25 @@ public class Grid {
 	 * @param row La riga della cella da modificare.
 	 * @param col La colonna della cella da modificare.
 	 */
-    public void setObstacle(int row, int col) {
+    public void setObstacle(Cell cell) {
+    	int row = cell.getRow();
+    	int col = cell.getCol();
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
             cells[row][col] = false;
         }
+    }
+    
+    /**
+     * Verifica se una cella è valida (attraversabile e all'interno della griglia).
+     * @param row Riga della cella.
+     * @param col Colonna della cella.
+     * @return true se la cella è valida (all'interno della griglia e attraversabile), false altrimenti.
+     */
+    public boolean isValid(Cell cell) {
+		int row = cell.getRow();
+		int col = cell.getCol();
+        return row >= 0 && row < getRows() && 
+               col >= 0 && col < getCols() && 
+               isTraversable(cell);
     }
 }

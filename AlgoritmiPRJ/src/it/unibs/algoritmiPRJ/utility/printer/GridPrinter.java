@@ -17,7 +17,7 @@ public class GridPrinter implements Printer {
 		String printedGrid = print(oggetto);
 		
         try (PrintWriter writer = new PrintWriter(new FileWriter(filepath + "/grid.txt"))) {
-            writer.println(printedGrid);
+            writer.print(printedGrid);
         } catch (IOException e) {
 			System.err.println("Errore durante il salvataggio della griglia: " + e.getMessage());
 		}
@@ -33,9 +33,10 @@ public class GridPrinter implements Printer {
                 sb.append(grid.getCells()[i][j] ? Legenda.NON_OSTACOLO : Legenda.OSTACOLO);
                 sb.append(" ");
             }
-            sb.append("\n");
+            if (i < grid.getRows() - 1) {
+				sb.append("\n");
+			}
         }
-        sb.append("\n");
         return sb.toString();
 	}
 }
