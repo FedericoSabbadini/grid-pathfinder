@@ -7,11 +7,13 @@ import java.util.*;
  */
 public class Grid {
 	
-	//Attributi
-    private boolean[][] cells; // Matrice che rappresenta la griglia, dove true indica una cella traversabile e false un ostacolo
-    private int rows; // Numero di righe della griglia
-    private int cols; // Numero di colonne della griglia
+	//========================Attributi========================
+    private boolean[][] cells; 
+    private final int rows;
+    private final int cols;
     
+    
+    //========================Costruttori========================
     /**
      * Costruttore per inizializzare una griglia con un numero specifico di righe e colonne.
 	 * @param rows Numero di righe della griglia.
@@ -26,18 +28,17 @@ public class Grid {
         }
     }
 
-    // Getters
+    
+    // ========================Getters========================
     public int getRows() { return rows; }
     public int getCols() { return cols; }
     public boolean[][] getCells() { return cells; }
     
     
-    // Metodi
+    // ========================Metodi========================
     /**
-	 * Verifica se una cella specificata da riga e colonna è attraversabile.
-	 * @param row La riga della cella da verificare.
-	 * @param col La colonna della cella da verificare.
-	 * @return true se la cella è attraversabile, false altrimenti.
+	 * Imposta una cella come traversabile.
+	 * @param cell La cella da impostare come traversabile.
 	 */
     public boolean isTraversable(Cell cell) {
     	int row = cell.getRow();
@@ -47,12 +48,11 @@ public class Grid {
         }
         return cells[row][col];
     }
-
+    
     /**
-	 * Imposta una cella specificata da riga e colonna come ostacolo (non attraversabile).
-	 * @param row La riga della cella da modificare.
-	 * @param col La colonna della cella da modificare.
-	 */
+     * Imposta una cella come non attraversabile (ostacolo).
+     * @param cell La cella da impostare come non attraversabile.
+     */
     public void setObstacle(Cell cell) {
     	int row = cell.getRow();
     	int col = cell.getCol();
@@ -62,11 +62,9 @@ public class Grid {
     }
     
     /**
-     * Verifica se una cella è valida (attraversabile e all'interno della griglia).
-     * @param row Riga della cella.
-     * @param col Colonna della cella.
-     * @return true se la cella è valida (all'interno della griglia e attraversabile), false altrimenti.
-     */
+	 * Imposta una cella come attraversabile.
+	 * @param cell La cella da impostare come attraversabile.
+	 */
     public boolean isValid(Cell cell) {
 		int row = cell.getRow();
 		int col = cell.getCol();
@@ -74,4 +72,21 @@ public class Grid {
                col >= 0 && col < getCols() && 
                isTraversable(cell);
     }
+    
+    /**
+	 * Restituisce un set di celle che rappresentano gli ostacoli nella griglia.
+	 * @return Un set di celle che non sono attraversabili.
+	 */
+	public Set<Cell> getObstacles() {
+		Set<Cell> obstacles = new HashSet<>();
+		for (int row = 0; row < getRows(); row++) {
+			for (int col = 0; col < getCols(); col++) {
+				Cell cell = new Cell(row, col);
+				if (!isTraversable(cell)) {
+					obstacles.add(cell);
+				}
+			}
+		}
+		return obstacles;
+	}
 }

@@ -22,7 +22,7 @@ public class GridLoader implements Loader {
 		int rows = gridSize[0];
 		int cols = gridSize[1];
     	
-        try (Scanner scanner = new Scanner(new File(fileGrid))) {; 
+        try (Scanner scanner = new Scanner(new File(fileGrid))) { 
             Grid grid = new Grid(rows, cols);
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
@@ -32,8 +32,8 @@ public class GridLoader implements Loader {
                     }
                 }
             }
-            
             return grid;
+            
         } catch (Exception e) {
 			throw new Exception("Errore durante il caricamento della griglia: " + e.getMessage());
 		}
@@ -43,9 +43,9 @@ public class GridLoader implements Loader {
 		ParamsLoader paramsLoader = new ParamsLoader();
 		GenerationParams params = (GenerationParams) paramsLoader.loadFile(filePath);
 		
-		if (params == null) {
+		if (params == null) 
 			throw new Exception("Impossibile caricare i parametri della griglia da: " + filePath);
-		}
+		
 		int rows = params.getRows();
 		int cols = params.getCols();
 		

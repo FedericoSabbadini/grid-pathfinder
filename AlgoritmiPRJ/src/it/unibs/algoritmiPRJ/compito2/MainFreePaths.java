@@ -75,21 +75,20 @@ public class MainFreePaths {
         }
     }
    
-    
     private static Cell getValidCell(Grid grid, String tipo) {
     	System.out.println("");
-    	int row, col, errorCount = 0;
+    	int row=grid.getRows(), col=grid.getCols(), errorCount = 0;
     	Cell cell;
     	
     	do {
-    	if (errorCount > 0) {
-			System.out.println("Errore: cella non valida o non attraversabile. Riprova.");
-		}
-        row = GestioneInput.getIntNonNegInput(">>> Riga " + tipo + " (0-" + (grid.getRows()-1) + "): ");
-        col = GestioneInput.getIntNonNegInput(">>> Colonna " + tipo + " (0-" + (grid.getCols()-1) + "): ");
-        cell = new Cell(row, col);
-		errorCount++;
-    	} while (row < 0 || row >= grid.getRows() || col < 0 || col >= grid.getCols() || !grid.isTraversable(cell));
+	    	if (errorCount > 0) {
+				System.out.println("Errore: cella non valida o non attraversabile. Riprova.");
+			}
+	        row = GestioneInput.getInputBetween(0, row, ">>> Riga " + tipo + " (0-" + (grid.getRows()-1) + "): ");
+	        col = GestioneInput.getInputBetween(0, col, ">>> Colonna " + tipo + " (0-" + (grid.getCols()-1) + "): ");
+	        cell = new Cell(row, col);
+			errorCount++;
+    	} while (!grid.isTraversable(cell));
     		
         return cell;
     }

@@ -7,26 +7,14 @@ package it.unibs.algoritmiPRJ.compito1;
  */
 public class GenerationParams {
 	
-	// Attributi
+	//========================Attributi========================
     private int rows;
     private int cols;
     private double obstacleRatio;
     private long seed;
     
-    //Getters
-    public int getRows() {
-		return rows;
-	}
-    public int getCols() {
-    	return cols;
-    }
-    public double getObstacleRatio() {
-    	return obstacleRatio;
-    }
-    public long getSeed() {
-		return seed;
-	}
-
+    
+    //========================Costruttore========================
     /**
 	 * Costruttore per inizializzare i parametri di generazione della griglia.
 	 * @param rows Numero di righe della griglia.
@@ -41,7 +29,15 @@ public class GenerationParams {
         this.seed = seed;
     }
     
-    //Metodi
+    
+    //========================Getters========================
+    public int getRows() {return rows;}
+    public int getCols() {return cols;}
+    public double getObstacleRatio() {return obstacleRatio;}
+    public long getSeed() {return seed;}
+
+    
+    //========================Metodi========================
     /**
 	 * Conta il numero di ostacoli nella griglia.
 	 * @return Il numero di celle non traversabili (ostacoli).

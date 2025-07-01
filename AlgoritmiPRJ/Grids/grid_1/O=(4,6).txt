@@ -1,4 +1,4 @@
-Chiusura della cella origine O = (4, 6)
+Chiusura della cella origine O = (4,6)
 
 + + + * . / + + + + + + + + + + + + + + 
 + + + * ■ ■ + + + + + + + + + + + + + + 
@@ -11,4 +11,4 @@ Chiusura della cella origine O = (4, 6)
 + + + + + * ■ ■ + + * * * * + + + ■ / . 
 + + + + + * . ■ ■ + + + + + + + + + * * 
 
-Data generazione: Mon Jun 30 18:29:36 CEST 2025
+Data generazione: Tue Jul 01 16:55:13 CEST 2025

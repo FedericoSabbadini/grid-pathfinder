@@ -12,15 +12,12 @@ public class MainGrid {
 
         try {
         	
-        	// Inizializza stampatori
         	GridPrinter gridPrinter = new GridPrinter();
         	ParamsPrinter paramsPrinter = new ParamsPrinter();
         	
-        	// Crea cartelle e file di supporto
         	GestioneFile.creaLegenda();
         	GestioneFile.creaGrids();
         	
-            // Input parametri
         	int rows = GestioneInput.getIntPosInput(">>> Inserisci numero di righe: ");
         	int cols = GestioneInput.getIntPosInput(">>> Inserisci numero di colonne: ");
         	double obstacleRatio = GestioneInput.getInputObstacleRatio();
@@ -36,18 +33,14 @@ public class MainGrid {
             if (GestioneInput.confermaSalvataggio()) {
             	String fileName = GestioneFile.creaNewGrid();
             	
-    		    // Salva griglia
     		    gridPrinter.saveToFile(fileName, grid);
-    		    
-    		    // Salva parametri
     		    paramsPrinter.saveToFile(fileName, params);
     		    System.out.println("Griglia e parametri salvati in: " + fileName);
             }
-
         } catch (Exception e) {
             System.err.println("Errore: " + e.getMessage());
         } finally {
             GestioneInput.chiudiScanner();
-         }   
+        }   
     }
 }

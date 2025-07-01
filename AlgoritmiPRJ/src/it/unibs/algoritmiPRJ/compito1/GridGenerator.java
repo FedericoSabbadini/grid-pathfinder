@@ -1,5 +1,4 @@
 package it.unibs.algoritmiPRJ.compito1;
-
 import java.util.*;
 
 /**
@@ -8,15 +7,18 @@ import java.util.*;
  */
 public class GridGenerator {
 	
-	// Attributi
+	//========================Attributi========================
     private Random random;
     
+    
+    //========================Costruttori========================
     /**
 	 * Costruttore per inizializzare il generatore di griglie con un seed casuale.
 	 */
     public GridGenerator() {
         this.random = new Random();
     }
+    
     /**
      * Costruttore per inizializzare il generatore di griglie con un seed specifico.
      * @param seed per la generazione casuale della griglia.
@@ -25,31 +27,25 @@ public class GridGenerator {
         this.random = new Random(seed);
     }
     
-    // Setters
-    public void setSeed(long seed) {
-		this.random.setSeed(seed);
-	}
-
-    //Metodi
     
+    //========================Setters========================
+    public void setSeed(long seed) {this.random.setSeed(seed);}
+    
+
+    //========================Metodi========================
     /**
      * Genera una griglia con ostacoli in base ai parametri specificati.
      * Utilizza l'algoritmo Fisher-Yates per posizionare gli ostacoli in modo casuale.
-     * Tempo medio ottimizzato: 36926 ns
      * 
      * @param params Parametri di generazione della griglia, inclusi numero di righe, colonne, percentuale di ostacoli e seed.
      * @return Una griglia generata casualmente con gli ostacoli posizionati.
      */
     public Grid generateRandomGrid(GenerationParams params) {
-    	
     	int rows = params.getRows();
     	int cols = params.getCols();
 		long seed = params.getSeed();
 		double obstacleRatio = params.getObstacleRatio();
-		
-    	
-    	// Impostazione seed per garanzia di riproducibilità
-        random.setSeed(seed);
+    	random.setSeed(seed);
         
         // Creazione della griglia e calcolo del numero di ostacoli
         Grid grid = new Grid(rows, cols);
@@ -74,7 +70,6 @@ public class GridGenerator {
             int col = indices[i] % cols;
             grid.setObstacle(new Cell(row, col));
         }
-        
         return grid;
     }
 }

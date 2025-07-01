@@ -33,6 +33,30 @@ public class GestioneInput {
     }
     
     /**
+     * Ottiene un input intero compreso tra due valori specificati dall'utente.
+     * @param min Il valore minimo accettabile.
+     * @param max Il valore massimo accettabile.
+     * @return Un numero intero compreso tra min e max inserito dall'utente.
+     */
+    public static int getInputBetween(int min, int max, String message) {
+		while (true) {
+			try {
+				System.out.print(message);
+				int num = scanner.nextInt();
+				if (num < min || num > max) {
+					throw new IllegalArgumentException("Deve essere compreso tra " + min + " e " + max);
+				}
+				return num;
+			} catch (InputMismatchException e) {
+				System.out.println("Errore: Inserire un numero intero valido.");
+				scanner.nextLine(); // Pulisce l’input errato
+			} catch (IllegalArgumentException e) {
+				System.out.println("Errore: " + e.getMessage());
+			}
+		}
+	}
+    
+    /**
      * Ottiene un input intero non negativo dall'utente.
      * 
      * @param message Messaggio da visualizzare all'utente.

@@ -15,7 +15,6 @@ public class GridPrinter implements Printer {
 	public void saveToFile(String filepath, Object oggetto) throws Exception {
 
 		String printedGrid = print(oggetto);
-		
         try (PrintWriter writer = new PrintWriter(new FileWriter(filepath + "/grid.txt"))) {
             writer.print(printedGrid);
         } catch (IOException e) {

@@ -31,8 +31,8 @@ public class ParamsLoader implements Loader {
 					seed = Long.parseLong(line.substring("Seed:".length()).trim());
 				}
 			}
-
 			return new GenerationParams(rows, cols, obstacleRatio, seed);
+			
 		} catch (Exception e) {
 			throw new Exception("Errore durante il caricamento dei parametri: " + e.getMessage());
 		}

@@ -6,7 +6,7 @@ package it.unibs.algoritmiPRJ.utility;
  */
 public class Legenda {
 
-    // Colori
+    // Colori 
     public static final String RESET  = "\u001B[0m";
     public static final String ROSSO = "\u001B[31m";
     public static final String AZZURRO = "\u001B[36m";
