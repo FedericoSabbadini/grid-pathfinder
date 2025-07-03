@@ -1,6 +1,5 @@
 package it.unibs.algoritmiPRJ.utility;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import it.unibs.algoritmiPRJ.utility.printer.LegendaPrinter;
 
@@ -16,25 +15,12 @@ public class GestioneFile {
      * @param path Percorso della directory.
      * @return true se la directory è stata creata o già esiste.
      */
-    public static boolean creaDirectory(String path) {
+    private static boolean creaDirectory(String path) {
         File dir = new File(path);
         if (!dir.exists()) {
             return dir.mkdirs();
         }
         return true;
-    }
-
-    /**
-     * Scrive del contenuto in un file specificato.
-     * 
-     * @param path     Percorso del file.
-     * @param contenuto Contenuto da scrivere.
-     * @throws IOException Se ci sono problemi di scrittura.
-     */
-    public static void scriviFile(String path, String contenuto) throws IOException {
-        FileWriter writer = new FileWriter(path);
-        writer.write(contenuto);
-        writer.close();
     }
 
     /**

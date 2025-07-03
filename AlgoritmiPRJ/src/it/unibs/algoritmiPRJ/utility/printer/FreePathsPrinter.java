@@ -24,7 +24,7 @@ public class FreePathsPrinter implements Printer {
     		filepath = filepath + "/O=" + origin.toString() + ".txt";
  
             try (PrintWriter writer = new PrintWriter(new FileWriter(filepath))) {
-                writer.println("Chiusura della cella origine O = "+ origin.toString() + "\n");
+                writer.println("# Chiusura della cella origine O = "+ origin.toString() + "\n");
                 writer.print(printedGrid);
                 writer.print("\nData generazione: " + new Date());
             }

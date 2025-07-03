@@ -173,7 +173,7 @@ public class FreePaths {
 	 * @param destination Cella di destinazione.
 	 * @return Distanza libera tra origine e destinazione, o -1 se non traversabile.
 	 */
-    public double calculateFreeDistance(Cell destination) {
+    public double dLib(Cell destination) {
     	// Controlla se le celle di origine e destinazione sono attraversabili
         if (!grid.isTraversable(origin) || !grid.isTraversable(destination)) {
             return -1;

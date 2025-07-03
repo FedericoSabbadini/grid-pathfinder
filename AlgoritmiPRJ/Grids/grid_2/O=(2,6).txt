@@ -1,4 +1,4 @@
-Chiusura della cella origine O = (2,6)
+# Chiusura della cella origine O = (2,6)
 
 + + + + + + + + + + + + + + 
 ■ + + + + + + + ■ - - - ■ - 
