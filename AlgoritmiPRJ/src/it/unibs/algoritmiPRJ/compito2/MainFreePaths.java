@@ -75,18 +75,25 @@ public class MainFreePaths {
         }
     }
    
+    /**
+	 * Chiede all'utente di inserire una cella valida (attraversabile) nella griglia.
+	 * 
+	 * @param grid La griglia in cui cercare la cella.
+	 * @param tipo Il tipo di cella da inserire (origine, destinazione, etc.).
+	 * @return La cella valida inserita dall'utente.
+	 */
     private static Cell getValidCell(Grid grid, String tipo) {
     	System.out.println("");
-    	int row=grid.getRows(), col=grid.getCols(), errorCount = 0;
+    	int row=grid.getRows(), col=grid.getCols(), errorCount = 0, rowO, colO;
     	Cell cell;
     	
     	do {
 	    	if (errorCount > 0) {
 				System.out.println("Errore: cella non valida o non attraversabile. Riprova.");
 			}
-	        row = GestioneInput.getInputBetween(0, row, ">>> Riga " + tipo + " (0-" + (grid.getRows()-1) + "): ");
-	        col = GestioneInput.getInputBetween(0, col, ">>> Colonna " + tipo + " (0-" + (grid.getCols()-1) + "): ");
-	        cell = new Cell(row, col);
+	        rowO = GestioneInput.getInputBetween(0, row, ">>> Riga " + tipo + " (0-" + (grid.getRows()-1) + "): ");
+	        colO = GestioneInput.getInputBetween(0, col, ">>> Colonna " + tipo + " (0-" + (grid.getCols()-1) + "): ");
+	        cell = new Cell(rowO, colO);
 			errorCount++;
     	} while (!grid.isTraversable(cell));
     		

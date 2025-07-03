@@ -18,16 +18,24 @@ public class MainGrid {
         	GestioneFile.creaLegenda();
         	GestioneFile.creaGrids();
         	
+        	GridType gridType = GestioneInput.getGridType(">>> Scegli il tipo di griglia (RANDOM, SPARSE, DENSE, MAZE, PATTERN, ROOMS_AND_CORRIDORS): ");
         	int rows = GestioneInput.getIntPosInput(">>> Inserisci numero di righe: ");
         	int cols = GestioneInput.getIntPosInput(">>> Inserisci numero di colonne: ");
-        	double obstacleRatio = GestioneInput.getInputObstacleRatio();
         	long seed = GestioneInput.getIntNonNegInput(">>> Inserisci seed (0 per casuale): ");
+        	GenerationParams params;
+        	if (gridType == GridType.RANDOM) {
+        		double obstacleRatio = GestioneInput.getInputObstacleRatio();
+        		params = new GenerationParams(rows, cols, obstacleRatio, seed);
+        	} else {
+        		params = new GenerationParams(rows, cols, seed, gridType);
+        	}
         	
             // Generazione griglia
             System.out.println();
-            GenerationParams params = new GenerationParams(rows, cols, obstacleRatio, seed);
             GridGenerator generator = new GridGenerator();
-            Grid grid = generator.generateRandomGrid(params);
+            Grid grid = generator.generateGrid(params);
+            params.setObstacleRatio(grid);
+            
             System.out.println(gridPrinter.print(grid));
 
             if (GestioneInput.confermaSalvataggio()) {

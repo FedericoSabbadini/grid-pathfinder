@@ -9,7 +9,7 @@ import it.unibs.algoritmiPRJ.compito2.FreePaths;
  * Estensione della classe FreePaths per gestire ostacoli aggiuntivi.
  * Questa classe permette di calcolare percorsi liberi considerando ostacoli specifici.
  */
-class FreePathsExtended extends FreePaths {
+public class FreePathsExtended extends FreePaths {
 	
 	//========================Attributi========================    
 	private final Set<Cell> additionalObstacles;

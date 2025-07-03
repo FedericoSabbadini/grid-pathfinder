@@ -1,3 +1,4 @@
+Tipo di griglia: RANDOM
 Righe: 10
 Colonne: 20
 Percentuale ostacoli: 0.12

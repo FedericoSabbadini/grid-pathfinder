@@ -2,6 +2,8 @@ package it.unibs.algoritmiPRJ.utility;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import it.unibs.algoritmiPRJ.compito1.GridType;
+
 /**
  * Classe per la gestione dell'input da console.
  * Fornisce metodi per ottenere input validi e gestire errori di input.
@@ -100,6 +102,26 @@ public class GestioneInput {
             }
         }
     }
+    
+    /**
+	 * Ottiene un tipo di griglia dall'utente.
+	 * @return Il tipo di griglia scelto dall'utente.
+	 */
+    public static GridType getGridType(String message) {
+		while (true) {
+			try {
+				System.out.print(message);
+				String type = scanner.next().toUpperCase();
+				if (!type.equals("RANDOM") && !type.equals("SPARSE") && !type.equals("DENSE") 
+						&& !type.equals("MAZE") && !type.equals("PATTERN") && !type.equals("ROOMS_AND_CORRIDORS")) {
+					throw new IllegalArgumentException("Tipo di griglia non valido");
+				}
+				return GridType.valueOf(type);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Errore: " + e.getMessage());
+			}
+		}
+	}
 
     /**
      * Ottiene un input booleano dall'utente.

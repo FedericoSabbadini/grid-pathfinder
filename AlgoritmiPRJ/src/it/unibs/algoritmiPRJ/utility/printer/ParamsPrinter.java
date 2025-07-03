@@ -29,6 +29,7 @@ public class ParamsPrinter implements Printer {
 		GenerationParams params = (GenerationParams) oggetto;
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("Tipo di griglia: ").append(params.getGridType()).append("\n");
 		sb.append("Righe: ").append(params.getRows()).append("\n");
 		sb.append("Colonne: ").append(params.getCols()).append("\n");
 		sb.append("Percentuale ostacoli: ").append(params.getObstacleRatio()).append("\n");

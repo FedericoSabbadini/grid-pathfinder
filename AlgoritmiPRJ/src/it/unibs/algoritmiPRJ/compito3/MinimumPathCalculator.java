@@ -11,7 +11,7 @@ import it.unibs.algoritmiPRJ.compito1.Grid;
  * Classe per il calcolo del cammino minimo tra due celle in una griglia,
  * considerando ostacoli e percorsi liberi.
  */
-class MinimumPathCalculator {
+public class MinimumPathCalculator {
 	
 	//========================Attributi========================    
     private final Grid grid;
@@ -88,10 +88,19 @@ class MinimumPathCalculator {
         if (frontier.isEmpty()) 
             return new MinimumPathResult(Double.POSITIVE_INFINITY, new ArrayList<>());
         
+        // Converti il Set in una List e ordina per distanza libera dalla destinazione (criterio euristico goloso)
+        List<Landmark> sortedFrontier = new ArrayList<>(frontier);
+        sortedFrontier.sort((l1, l2) -> {
+            double dist1 = freePathsCalculator.dLib(l1.getCell(), destination);
+            double dist2 = freePathsCalculator.dLib(l2.getCell(), destination);
+            return Double.compare(dist1, dist2);
+        });
+        
+        
         // Inizializzazione per il caso ricorsivo
         double lunghezzaMin = Double.POSITIVE_INFINITY;
         
-        for (Landmark frontierLandmark : frontier) {
+        for (Landmark frontierLandmark : sortedFrontier) { // Itera sui landmark della frontiera ordinata
             Cell frontierCell = frontierLandmark.getCell();
             int t = frontierLandmark.getType();
             

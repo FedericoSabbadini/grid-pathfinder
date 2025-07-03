@@ -41,14 +41,14 @@ public class Grid {
 	 * @param cell La cella da impostare come traversabile.
 	 */
     public boolean isTraversable(Cell cell) {
-    	int row = cell.getRow();
-    	int col = cell.getCol();
+    	return isTraversable(cell.getRow(), cell.getCol());
+    }
+    public boolean isTraversable(int row, int col) {
         if (row < 0 || row >= getRows() || col < 0 || col >= getCols()) {
             return false;
         }
         return cells[row][col];
     }
-    
     /**
      * Imposta una cella come non attraversabile (ostacolo).
      * @param cell La cella da impostare come non attraversabile.
@@ -62,15 +62,28 @@ public class Grid {
     }
     
     /**
+	 * Rimuove un ostacolo da una cella, rendendola attraversabile.
+	 * @param cell La cella da rendere tatraversabile.
+	 */
+    public void removeObstacle(Cell cell) {
+		int row = cell.getRow();
+		int col = cell.getCol();
+		if (row >= 0 && row < rows && col >= 0 && col < cols) {
+			cells[row][col] = true;
+		}
+	}
+   
+    /**
 	 * Imposta una cella come attraversabile.
 	 * @param cell La cella da impostare come attraversabile.
 	 */
     public boolean isValid(Cell cell) {
-		int row = cell.getRow();
-		int col = cell.getCol();
+		return isValid(cell.getRow(), cell.getCol());
+    }
+    public boolean isValid(int row, int col) {
         return row >= 0 && row < getRows() && 
                col >= 0 && col < getCols() && 
-               isTraversable(cell);
+               isTraversable(row, col);
     }
     
     /**
