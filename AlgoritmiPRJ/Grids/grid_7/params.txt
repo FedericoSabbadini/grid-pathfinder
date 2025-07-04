@@ -1,7 +1,7 @@
 Tipo di griglia: ROOMS_AND_CORRIDORS
-Righe: 20
-Colonne: 25
-Percentuale ostacoli: 0.568
-Ostacoli generati: 284
+Righe: 23
+Colonne: 23
+Percentuale ostacoli: 0.5293005671077504
+Ostacoli generati: 280
 Seed: 0
-Data generazione: Fri Jul 04 13:01:35 CEST 2025
+Data generazione: Sat Jul 05 01:05:14 CEST 2025

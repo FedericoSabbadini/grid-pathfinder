@@ -188,10 +188,11 @@ public class GridGenerator {
         int cols = params.getCols();
 
         ArrayGrid grid = new ArrayGrid(rows, cols);
+        int spacing = random.nextInt(4) + 1;
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                if ((r + c) % 2 == 0) {
+                if ((r + c) % spacing == 0) {
                     grid.setObstacle(new Cell(r, c));
                 }
             }
@@ -211,10 +212,11 @@ public class GridGenerator {
         int cols = params.getCols();
 
         ArrayGrid grid = new ArrayGrid(rows, cols);
+        int spacing = random.nextInt(4) + 1;
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                if ((c) % 2 == 0) {
+                if ((c) % spacing == 0) {
                     grid.setObstacle(new Cell(r, c));
                 }
             }
@@ -225,10 +227,10 @@ public class GridGenerator {
 
 
     /**
-     * Genera una griglia con stanze e corridoi con un approccio regolare per cluster stanze di dimensioni fisse
+     * Genera una griglia con stanze quadrate regolarmente distribuite e corridoi che le collegano.
      * 
-     * @param params Parametri di generazione della griglia, inclusi numero di righe e colonne.
-     * @return Una griglia generata con stanze e corridoi.
+     * @param params Parametri di generazione, inclusi numero di righe e colonne.
+     * @return Una griglia contenente stanze e corridoi.
      */
     private ArrayGrid generateRoomsAndCorridorsGrid(GenerationParams params) {
         int rows = params.getRows();
@@ -236,23 +238,27 @@ public class GridGenerator {
 
         ArrayGrid grid = new ArrayGrid(rows, cols);
 
-        // Inizializza tutto come ostacolo
-        for (int r = 0; r < rows; r++) 
-            for (int c = 0; c < cols; c++) 
+        // Imposta tutta la griglia come ostacolo
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
                 grid.setObstacle(new Cell(r, c));
+            }
+        }
 
         Random random = new Random();
-        int roomSize = random.nextInt(3) + 3; // Dimensione stanza casuale tra 3 e 5
-        int spacing = random.nextInt(3) + 1; // Spaziatura tra stanze casuale tra 1 e 3
-        int roomCountRows = rows / (roomSize + spacing);
-        int roomCountCols = cols / (roomSize + spacing);
+        int roomSize = random.nextInt(3) + 3;     // 3-5
+        int spacing = random.nextInt(3) + 1;      // 1-3
 
-        
-        // Genera stanze
-        for (int rr = 0; rr < roomCountRows; rr++) {
-            for (int cc = 0; cc < roomCountCols; cc++) {
-                int rStart = rr * (roomSize + spacing) + spacing;
-                int cStart = cc * (roomSize + spacing) + spacing;
+        int totalStep = roomSize + spacing;
+        int roomsPerRow = rows / totalStep;
+        int roomsPerCol = cols / totalStep;
+
+        // Crea stanze
+        for (int i = 0; i < roomsPerRow; i++) {
+            for (int j = 0; j < roomsPerCol; j++) {
+                int rStart = i * totalStep + spacing;
+                int cStart = j * totalStep + spacing;
+
                 for (int r = rStart; r < rStart + roomSize && r < rows; r++) {
                     for (int c = cStart; c < cStart + roomSize && c < cols; c++) {
                         grid.removeObstacle(new Cell(r, c));
@@ -261,18 +267,24 @@ public class GridGenerator {
             }
         }
 
-        // Genera corridoi orizzontali e verticali per collegare stanze
-        for (int rr = 0; rr < roomCountRows - 1; rr++) {
-            for (int cc = 0; cc < roomCountCols - 1; cc++) {
-                int rStart = rr * (roomSize + spacing) + spacing + roomSize / 2;
-                int cStart = cc * (roomSize + spacing) + spacing + roomSize / 2;
-                // Corridoio verticale tra stanze sopra/sotto
-                for (int r = rStart; r < rStart + roomSize + spacing && r < rows; r++) {
-                    grid.removeObstacle(new Cell(r, cStart));
+        // Crea corridoi per connettere tutte le stanze
+        for (int i = 0; i < roomsPerRow; i++) {
+            for (int j = 0; j < roomsPerCol; j++) {
+                int rMid = i * totalStep + spacing + roomSize / 2;
+                int cMid = j * totalStep + spacing + roomSize / 2;
+
+                // Collega in basso, se possibile
+                if (i < roomsPerRow - 1) {
+                    for (int r = rMid; r <= rMid + totalStep && r < rows; r++) {
+                        grid.removeObstacle(new Cell(r, cMid));
+                    }
                 }
-                // Corridoio orizzontale tra stanze sinistra/destra
-                for (int c = cStart; c < cStart + roomSize + spacing && c < cols; c++) {
-                    grid.removeObstacle(new Cell(rStart, c));
+
+                // Collega a destra, se possibile
+                if (j < roomsPerCol - 1) {
+                    for (int c = cMid; c <= cMid + totalStep && c < cols; c++) {
+                        grid.removeObstacle(new Cell(rMid, c));
+                    }
                 }
             }
         }

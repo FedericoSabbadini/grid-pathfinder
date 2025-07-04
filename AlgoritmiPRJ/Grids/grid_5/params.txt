@@ -1,7 +1,7 @@
 Tipo di griglia: PATTERN
-Righe: 25
-Colonne: 61
-Percentuale ostacoli: 0.5081967213114754
-Ostacoli generati: 775
-Seed: 0
-Data generazione: Thu Jul 03 22:02:44 CEST 2025
+Righe: 23
+Colonne: 21
+Percentuale ostacoli: 0.3333333333333333
+Ostacoli generati: 161
+Seed: 2
+Data generazione: Sat Jul 05 01:19:59 CEST 2025
