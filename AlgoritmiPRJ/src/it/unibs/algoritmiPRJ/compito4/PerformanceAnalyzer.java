@@ -205,12 +205,17 @@ public class PerformanceAnalyzer {
     private Cell[] selectRandomCell() {
         if (traversableCells.size() < 2) return null;
         
-        int idx1 = random.nextInt(traversableCells.size()-1);
+        int idx1 = random.nextInt(traversableCells.size());
         int idx2;
         do {
-            idx2 = random.nextInt(traversableCells.size()-1);
+            idx2 = random.nextInt(traversableCells.size());
         } while (idx1 == idx2 );
         
-        return new Cell[] { traversableCells.get(idx1), traversableCells.get(idx2) };
+        try {
+        	return new Cell[] { traversableCells.get(idx1), traversableCells.get(idx2) };
+        } catch (Exception e) {
+        	e.getMessage();
+        }
+		return selectRandomCell();
     }
 }
