@@ -8,7 +8,7 @@ import it.unibs.algoritmiPRJ.compito3.Landmark;
 /**
  * Classe per calcolare cammini liberi in una griglia.
  * Gestisce contesto e complemento per celle attraversabili.
- * Versione ottimizzata con cache e riduzione di allocazioni.
+ * Versione ottimizzata con riduzione di allocazioni.
  */
 public class FreePaths {
     
@@ -25,15 +25,12 @@ public class FreePaths {
 	//========================Costruttori========================
     /**
 	 * Costruttore che accetta una griglia.
-	 * @param grid Griglia su cui calcolare i cammini liberi.
+	 * @param grid2 Griglia su cui calcolare i cammini liberi.
 	 */
     public FreePaths(Grid grid, Cell origin) {
         this.grid = grid;
         this.rows = grid.getRows();
         this.cols = grid.getCols();
-        this.context = new HashSet<>();
-		this.complement = new HashSet<>();
-		this.closure = new HashSet<>();		
 		this.setOrigin(origin);
     }
     
@@ -56,6 +53,10 @@ public class FreePaths {
             throw new IllegalArgumentException("Cella origine non attraversabile");
         }
         this.origin = origin;
+        this.context = new HashSet<>();
+        this.complement = new HashSet<>();
+        this.closure = new HashSet<>();
+        
         context.add(origin);
         closure.add(new Landmark(origin, 0));
 	}
@@ -68,22 +69,23 @@ public class FreePaths {
 	 * in base alla presenza di cammini liberi di tipo 1 o 2.
 	 */
     public void calculateContextAndComplement() {
+        int oRow = origin.getRow();
+        int oCol = origin.getCol();
         
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-            	
-                Cell cell = new Cell(row, col);
-
                 // Skip celle non attraversabili e origine
-                if (!grid.isTraversable(cell) || (cell.equals(origin))) {
+                if (!grid.isTraversable(row, col) || (row == oRow && col == oCol)) {
                     continue;
                 }
                 
                 // Verifica Type1 prima, se fallisce prova Type2
-                if (hasValidFreePath(origin, cell, true)) {
+                if (hasValidFreePath(oRow, oCol, row, col, true)) {
+                    Cell cell = new Cell(row, col);
                     context.add(cell);
                     closure.add(new Landmark(cell, 1));
-                } else if (hasValidFreePath(origin, cell, false)) {
+                } else if (hasValidFreePath(oRow, oCol, row, col, false)) {
+                    Cell cell = new Cell(row, col);
                     complement.add(cell);
                     closure.add(new Landmark(cell, 2));
                 }
@@ -93,115 +95,84 @@ public class FreePaths {
 
 	/**
 	 * Verifica se esiste un cammino libero tra due celle.
-	 * 
-	 * @param origin Cella di partenza.
-	 * @param destination Cella di destinazione.
-	 * @param isType1 Indica se il cammino è di tipo 1 (diagonale -> ortogonale).
-	 * @return true se esiste un cammino libero, false altrimenti.
+	 * Evita creazione di oggetti Cell non necessari.
 	 */
-    private boolean hasValidFreePath(Cell origin, Cell destination, boolean isType1) {
+    private boolean hasValidFreePath(int oRow, int oCol, int dRow, int dCol, boolean isType1) {
         // Early termination
-        if (origin.equals(destination)) return true;
+        if (oRow == dRow && oCol == dCol) return true;
         
-    	int oRow = origin.getRow(), oCol = origin.getCol(), 
-    			dRow = destination.getRow(), dCol = destination.getCol(), 
-    			deltaX = Math.abs(dCol - oCol), deltaY = Math.abs(dRow - oRow), 
-    			rowDir = Integer.compare(dRow, oRow), colDir = Integer.compare(dCol, oCol);
+    	int deltaX = Math.abs(dCol - oCol);
+    	int deltaY = Math.abs(dRow - oRow);
+    	int rowDir = Integer.compare(dRow, oRow);
+    	int colDir = Integer.compare(dCol, oCol);
 
         //=====Casi speciali=====
-        if (deltaX == 0) return isPathClearOptimized(oRow, oCol, dRow, dCol, rowDir, 0); // Colonna fissa
-        if (deltaY == 0) return isPathClearOptimized(oRow, oCol, dRow, dCol, 0, colDir); // Riga fissa
-        if (deltaX == deltaY) return isPathClearOptimized(oRow, oCol, dRow, dCol, rowDir, colDir); // Diagonale perfetta
+        if (deltaX == 0) return isPathClear(oRow, oCol, dRow, dCol, rowDir, 0);
+        if (deltaY == 0) return isPathClear(oRow, oCol, dRow, dCol, 0, colDir);
+        if (deltaX == deltaY) return isPathClear(oRow, oCol, dRow, dCol, rowDir, colDir);
         
         //=====Casi misti=====
         int minDelta = Math.min(deltaX, deltaY);
         
         //=====Tipo 1: diagonale -> ortogonale
         if (isType1) {
-        	// spostamento diagonale
         	int midRow = oRow + minDelta * rowDir;
         	int midCol = oCol + minDelta * colDir;
         	
-        	// Controlla se la cella di mezzo è valida e attraversabile
-            if (!grid.isValid(midRow, midCol) || !isTraversable(new Cell(midRow, midCol))) {
+            if (!grid.isValid(midRow, midCol)) {
                 return false;
             }
-            // Verifica se il cammino diagonale è libero
-            if (!isPathClearOptimized(oRow, oCol, midRow, midCol, rowDir, colDir)) return false;
+            if (!isPathClear(oRow, oCol, midRow, midCol, rowDir, colDir)) return false;
             
-            // spostamento ortogonale
             if (deltaX > deltaY) {
-            	// spostamento in orizzontale
-                return isPathClearOptimized(midRow, midCol, dRow, dCol, 0, colDir);
+                return isPathClear(midRow, midCol, dRow, dCol, 0, colDir);
             } else {
-            	// spostamento in verticale
-                return isPathClearOptimized(midRow, midCol, dRow, dCol, rowDir, 0);
+                return isPathClear(midRow, midCol, dRow, dCol, rowDir, 0);
             }
             
         //=====Tipo 2: ortogonale -> diagonale
         } else {
-        	// spostamento in orizzontale
             if (deltaX > deltaY) {
             	int midRow = oRow;
             	int midCol = oCol + (deltaX - minDelta) * colDir;
                 
-            	// Controlla se la cella di mezzo è valida e attraversabile
-                if (!grid.isValid(midRow, midCol) || !isTraversable(new Cell(midRow, midCol))) {
+                if (!grid.isValid(midRow, midCol)) {
                     return false;
                 }
                 
-                // Verifica se il cammino orizzontale è libero
-            	return grid.isValid(midRow, midCol) && 
-                       isPathClearOptimized(oRow, oCol, midRow, midCol, 0, colDir) && 
-                       isPathClearOptimized(midRow, midCol, dRow, dCol, rowDir, colDir);
+            	return isPathClear(oRow, oCol, midRow, midCol, 0, colDir) && 
+                       isPathClear(midRow, midCol, dRow, dCol, rowDir, colDir);
 
-            // spostamento in verticale
             } else {
                 int midRow = oRow + (deltaY - minDelta) * rowDir;
                 int midCol = oCol;
                
-                // Controlla se la cella di mezzo è valida e attraversabile
-                if (!grid.isValid(midRow, midCol) || !isTraversable(new Cell(midRow, midCol))) {
+                if (!grid.isValid(midRow, midCol)) {
                     return false;
                 }
                 
-                // Verifica se il cammino verticale è libero
-                return grid.isValid(midRow, midCol) && 
-                       isPathClearOptimized(oRow, oCol, midRow, midCol, rowDir, 0) && 
-                       isPathClearOptimized(midRow, midCol, dRow, dCol, rowDir, colDir);
+                return isPathClear(oRow, oCol, midRow, midCol, rowDir, 0) && 
+                       isPathClear(midRow, midCol, dRow, dCol, rowDir, colDir);
             }
         }
     }
     
 	/**
 	 * Verifica se il cammino tra due celle è libero in una direzione specifica.
-	 * Versione ottimizzata che evita creazione di oggetti Cell.
-	 * 
-	 * @param startRow Riga di partenza.
-	 * @param startCol Colonna di partenza.
-	 * @param endRow Riga di destinazione.
-	 * @param endCol Colonna di destinazione.
-	 * @param rowDir Direzione riga (-1, 0, 1).
-	 * @param colDir Direzione colonna (-1, 0, 1).
-	 * @return true se il cammino è libero, false altrimenti.
 	 */
-    private boolean isPathClearOptimized(int startRow, int startCol, int endRow, int endCol, int rowDir, int colDir) {
+    private boolean isPathClear(int startRow, int startCol, int endRow, int endCol, int rowDir, int colDir) {
         int row = startRow;
         int col = startCol;
         
-        // Verifica tutte le celle lungo il percorso, inclusa la destinazione
         while (true) {
-            // Se siamo arrivati alla destinazione, il percorso è libero
             if (row == endRow && col == endCol) {
                 return true;
             }
             
-            // Muovi alla prossima cella
             row += rowDir;
             col += colDir;
             
-            // Verifica se la cella è attraversabile
-            if (!grid.isValid(row, col) || !isTraversable(new Cell(row, col))) {
+            if (!grid.isValid(row, col)) {
                 return false;
             }
         }
@@ -209,13 +180,8 @@ public class FreePaths {
     
 	/**
 	 * Calcola la distanza libera tra la cella di origine e una destinazione.
-	 * La distanza è calcolata come la somma delle distanze diagonali e ortogonali.
-	 * 
-	 * @param destination Cella di destinazione.
-	 * @return Distanza libera tra origine e destinazione, o -1 se non traversabile.
 	 */
     public double dLib(Cell destination) {
-    	// Controlla se le celle di origine e destinazione sono attraversabili
         if (!grid.isTraversable(origin) || 
             !grid.isTraversable(destination)) {
             return -1;
@@ -230,8 +196,6 @@ public class FreePaths {
     
     /**
      * Verifica se una cella è attraversabile.
-     * @param cell Cella da verificare.
-     * @return true se la cella è attraversabile, false altrimenti.
      */
     public boolean isTraversable(Cell cell) {
 		return grid.isTraversable(cell);
@@ -239,8 +203,6 @@ public class FreePaths {
     
     /**
 	 * Verifica se una cella è valida nella griglia.
-	 * @param cell Cella da verificare.
-	 * @return true se la cella è valida, false altrimenti.
 	 */
     public boolean isValid(Cell cell) {
     	return grid.isValid(cell);
@@ -248,10 +210,6 @@ public class FreePaths {
     
     /**
 	 * Restituisce l'insieme delle celle di frontiera.
-	 * Le celle di frontiera sono quelle che hanno almeno un vicino attraversabile
-	 * che non appartiene al contesto o al complemento.
-	 * 
-	 * @return Set di Landmark che rappresentano le celle di frontiera.
 	 */
     public Set<Landmark> getFrontiera() {
     	Set<Landmark> frontiera = new HashSet<>();
@@ -266,11 +224,6 @@ public class FreePaths {
 
     /**
 	 * Verifica se una cella è una cella di frontiera.
-	 * Una cella di frontiera ha almeno un vicino attraversabile
-	 * che non appartiene al contesto o al complemento.
-	 * 
-	 * @param cell Cella da verificare.
-	 * @return true se la cella è di frontiera, false altrimenti.
 	 */
 	private boolean isFrontierCell(Cell cell) {
         for (Cell neighbor : cell.getAllNeighbors()) {

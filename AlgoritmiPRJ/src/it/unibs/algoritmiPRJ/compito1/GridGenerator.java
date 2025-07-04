@@ -40,7 +40,7 @@ public class GridGenerator {
 	 * @param params Parametri di generazione della griglia, inclusi numero di righe, colonne, percentuale di ostacoli e seed.
 	 * @return Una griglia generata in base ai parametri specificati.
 	 */
-    public Grid generateGrid(GenerationParams params) {
+    public ArrayGrid generateGrid(GenerationParams params) {
 		long seed = params.getSeed();
     	random.setSeed(seed);
     	
@@ -76,13 +76,13 @@ public class GridGenerator {
 	 * @param params Parametri di generazione della griglia, inclusi numero di righe, colonne e percentuale di ostacoli.
 	 * @return Una griglia generata casualmente con ostacoli.
 	 */
-    private Grid generateRandomGrid(GenerationParams params) {
+    private ArrayGrid generateRandomGrid(GenerationParams params) {
     	int rows = params.getRows();
     	int cols = params.getCols();
 		double obstacleRatio = params.getObstacleRatio();
         
         // Creazione della griglia e calcolo del numero di ostacoli
-        Grid grid = new Grid(rows, cols);
+        ArrayGrid grid = new ArrayGrid(rows, cols);
         int totalCells = rows * cols;
         int obstacleCount = (int) Math.round(totalCells * obstacleRatio);
         
@@ -114,7 +114,7 @@ public class GridGenerator {
      * @param params Parametri di generazione della griglia, inclusi numero di righe e colonne.
      * @return Una griglia generata come labirinto con ingresso e uscita.
      */
-    private Grid generateMazeGrid(GenerationParams params) {
+    private ArrayGrid generateMazeGrid(GenerationParams params) {
         int rows = params.getRows();
         int cols = params.getCols();
 
@@ -122,7 +122,7 @@ public class GridGenerator {
         if (rows % 2 == 0) rows--;
         if (cols % 2 == 0) cols--;
 
-        Grid grid = new Grid(rows, cols);
+        ArrayGrid grid = new ArrayGrid(rows, cols);
         // Inizializza tutto come ostacolo
         for (int r = 0; r < rows; r++) 
             for (int c = 0; c < cols; c++) 
@@ -148,7 +148,7 @@ public class GridGenerator {
      * @param maxRows il numero massimo di righe della griglia.
      * @param maxCols il numero massimo di colonne della griglia.
      */
-    private void carveMaze(Grid grid, int r, int c, int maxRows, int maxCols) {
+    private void carveMaze(ArrayGrid grid, int r, int c, int maxRows, int maxCols) {
         grid.removeObstacle(new Cell(r, c));
         int[][] directions = {{0,2}, {0,-2}, {2,0}, {-2,0}};
         shuffleArray(directions);
@@ -183,11 +183,11 @@ public class GridGenerator {
 	 * @param params Parametri di generazione della griglia, inclusi numero di righe e colonne.
 	 * @return Una griglia generata con un pattern regolare di ostacoli.
 	 */
-    private Grid generatePatternRegolareDGrid(GenerationParams params) {
+    private ArrayGrid generatePatternRegolareDGrid(GenerationParams params) {
         int rows = params.getRows();
         int cols = params.getCols();
 
-        Grid grid = new Grid(rows, cols);
+        ArrayGrid grid = new ArrayGrid(rows, cols);
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
@@ -206,11 +206,11 @@ public class GridGenerator {
 	 * @param params Parametri di generazione della griglia, inclusi numero di righe e colonne.
 	 * @return Una griglia generata con un pattern regolare di ostacoli.
 	 */
-    private Grid generatePatternRegolareOGrid(GenerationParams params) {
+    private ArrayGrid generatePatternRegolareOGrid(GenerationParams params) {
         int rows = params.getRows();
         int cols = params.getCols();
 
-        Grid grid = new Grid(rows, cols);
+        ArrayGrid grid = new ArrayGrid(rows, cols);
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
@@ -230,11 +230,11 @@ public class GridGenerator {
      * @param params Parametri di generazione della griglia, inclusi numero di righe e colonne.
      * @return Una griglia generata con stanze e corridoi.
      */
-    private Grid generateRoomsAndCorridorsGrid(GenerationParams params) {
+    private ArrayGrid generateRoomsAndCorridorsGrid(GenerationParams params) {
         int rows = params.getRows();
         int cols = params.getCols();
 
-        Grid grid = new Grid(rows, cols);
+        ArrayGrid grid = new ArrayGrid(rows, cols);
 
         // Inizializza tutto come ostacolo
         for (int r = 0; r < rows; r++) 

@@ -33,7 +33,7 @@ public class MainGrid {
             // Generazione griglia
             System.out.println();
             GridGenerator generator = new GridGenerator();
-            Grid grid = generator.generateGrid(params);
+            ArrayGrid grid = generator.generateGrid(params);
             params.setObstacleRatio(grid);
             
             System.out.println(gridPrinter.print(grid));

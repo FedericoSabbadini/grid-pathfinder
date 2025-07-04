@@ -16,6 +16,7 @@ public class LegendaPrinter implements Printer {
 
         sb.append("Legenda tabella:\n");
         sb.append("--> " + Legenda.ORIGINE).append(" = origine\n");
+		sb.append("--> " + Legenda.DESTINAZIONE).append(" = destinazione\n");
         sb.append("--> " + Legenda.OSTACOLO + " Nero").append(" = ostacolo\n");
         sb.append("--> " + Legenda.NON_OSTACOLO).append(" = non ostacolo\n\n");
         
@@ -25,7 +26,9 @@ public class LegendaPrinter implements Printer {
         
         sb.append("--> " + Legenda.OSTACOLO + " Rosso").append(" = cella del complemento\n");
         sb.append("--> " + Legenda.OSTACOLO + " Rosso Chiaro").append(" = cella frontiera del complemento\n");
-        sb.append("--> " + Legenda.COMPLEMENTO_FILE).append(" = cella del complemento (file)");
+        sb.append("--> " + Legenda.COMPLEMENTO_FILE).append(" = cella del complemento (file)\n\n");
+        
+        sb.append("--> " + Legenda.LANDMARK ).append(" = landmark nella sequenza");
                
         return sb.toString();
 	}

@@ -2,7 +2,11 @@ package it.unibs.algoritmiPRJ.utility.printer;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import it.unibs.algoritmiPRJ.compito1.Grid;
+import java.util.List;
+
+import it.unibs.algoritmiPRJ.compito1.Cell;
+import it.unibs.algoritmiPRJ.compito1.ArrayGrid;
+import it.unibs.algoritmiPRJ.compito3.Landmark;
 import it.unibs.algoritmiPRJ.utility.Legenda;
 
 /**
@@ -24,7 +28,7 @@ public class GridPrinter implements Printer {
 	
 	@Override
 	public String print(Object oggetto) throws Exception {
-		Grid grid = (Grid) oggetto;
+		ArrayGrid grid = (ArrayGrid) oggetto;
 		StringBuilder sb = new StringBuilder();
 		
         for (int i = 0; i < grid.getRows(); i++) {
@@ -36,6 +40,39 @@ public class GridPrinter implements Printer {
 				sb.append("\n");
 			}
         }
+        return sb.toString();
+	}
+	
+	public String printLandmark(ArrayGrid grid, List<Landmark> sequence) throws Exception {
+		StringBuilder sb = new StringBuilder();
+		
+        if (grid == null || sequence == null || sequence.isEmpty()) 
+        	return new StringBuilder("").toString();
+        
+        Cell origine = sequence.get(0).getCell();
+        Cell destinazione = sequence.get(sequence.size() - 1).getCell();
+        
+        for (int i = 0; i < grid.getRows(); i++) {
+            for (int j = 0; j < grid.getCols(); j++) {
+            	Cell cell = new Cell(i, j);
+            	if (cell.equals(origine)) 
+					sb.append(Legenda.ORIGINE);
+				else if (cell.equals(destinazione)) 
+					sb.append(Legenda.DESTINAZIONE);
+            	else if (sequence.contains(new Landmark(cell, 1)))
+            		sb.append(Legenda.LANDMARK);
+            	else if (sequence.contains(new Landmark(cell, 2)))
+            		sb.append(Legenda.LANDMARK);
+            	else
+            		sb.append(grid.getCells()[i][j] ? Legenda.NON_OSTACOLO : Legenda.OSTACOLO);
+            	
+                sb.append(" ");
+            }
+            if (i < grid.getRows() - 1) {
+				sb.append("\n");
+			}
+        }
+        sb.append("\n");
         return sb.toString();
 	}
 }

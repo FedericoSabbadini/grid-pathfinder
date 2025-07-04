@@ -15,6 +15,7 @@ public class Legenda {
 
     // Simboli
     public static final String ORIGINE = "O";
+    public static final String DESTINAZIONE = "D";
     public static final String OSTACOLO = "■";
     public static final String NON_OSTACOLO = ".";
     public static final String CONTESTO = AZZURRO + "■" + RESET;
@@ -25,4 +26,6 @@ public class Legenda {
     public static final String FRONTIERA_COMPLEMENTO_FILE = "/";
     public static final String FRONTIERA_CONTESTO =  AZZURRO_CHIARO + "■" + RESET;
     public static final String FRONTIERA_COMPLEMENTO =  ROSSO_CHIARO + "■" + RESET;
+    public static final String LANDMARK = "□";
+
 }

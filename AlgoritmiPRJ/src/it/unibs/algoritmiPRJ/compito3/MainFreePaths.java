@@ -1,10 +1,11 @@
 package it.unibs.algoritmiPRJ.compito3;
 import it.unibs.algoritmiPRJ.compito1.Cell;
-import it.unibs.algoritmiPRJ.compito1.Grid;
+import it.unibs.algoritmiPRJ.compito1.ArrayGrid;
 import it.unibs.algoritmiPRJ.compito2.FreePaths;
 import it.unibs.algoritmiPRJ.utility.GestioneInput;
 import it.unibs.algoritmiPRJ.utility.loader.GridLoader;
 import it.unibs.algoritmiPRJ.utility.printer.FreePathsPrinter;
+import it.unibs.algoritmiPRJ.utility.printer.GridPrinter;
 import it.unibs.algoritmiPRJ.utility.printer.MinimumPathResultPrinter;
 
 public class MainFreePaths {
@@ -14,6 +15,7 @@ public class MainFreePaths {
         System.out.println("Compito 3 - Calcolo contesto, complemento e distanza libera\n");
         
         GridLoader gridLoader = new GridLoader();
+        GridPrinter gridPrinter = new GridPrinter();
         FreePathsPrinter pathsPrinter = new FreePathsPrinter();
         MinimumPathResultPrinter minimumPathPrinter = new MinimumPathResultPrinter();
         
@@ -21,8 +23,8 @@ public class MainFreePaths {
         	// Carica griglia
         	int numGrid = GestioneInput.getIntPosInput(">>> Numero file griglia da caricare: ");
         	String fileName = "Grids/grid_" + numGrid;
-            Grid grid = (Grid) gridLoader.loadFile(fileName);
-            System.out.println("Griglia " + grid.getRows() + "x" + grid.getCols() + " caricata.");
+            ArrayGrid grid = (ArrayGrid) gridLoader.loadFile(fileName);
+            System.out.println(gridPrinter.print(grid));
 
             // Imposta Origine
         	System.out.println();
@@ -53,11 +55,16 @@ public class MainFreePaths {
                         if (destinazione == null) return;
                         
                         MinimumPathResult result = calculatorMinimumPath.calculateMinimumPath(origin, destinazione);
-                        Object[] printerInput = {result, origin, destinazione};
+                        
+                        Object[] printerInput = {grid, result, origin, destinazione};
                         System.out.println(minimumPathPrinter.print(printerInput));
                         minimumPathPrinter.saveToFile(fileName, printerInput);
+                        
                     }
                     case 3 -> {
+                        System.out.println(gridPrinter.print(grid));
+                        System.out.println();
+
 						origin = getValidCell(grid, "origine");
 						if (origin == null) return;
 						calculator.setOrigin(origin);
@@ -85,7 +92,7 @@ public class MainFreePaths {
 	 * @param tipo Il tipo di cella da inserire (origine, destinazione, etc.).
 	 * @return La cella valida inserita dall'utente.
 	 */
-    private static Cell getValidCell(Grid grid, String tipo) {
+    private static Cell getValidCell(ArrayGrid grid, String tipo) {
     	int row=grid.getRows(), col=grid.getCols(), errorCount = 0, rowO, colO;
     	Cell cell;
     	

@@ -78,7 +78,7 @@ public class GenerationParams {
     public double getObstacleRatio() {return obstacleRatio;}
     public long getSeed() {return seed;}
     public GridType getGridType() {return gridType;}
-    public void setObstacleRatio(Grid grid) {
+    public void setObstacleRatio(ArrayGrid grid) {
     	double totalCells = getRows() * getCols();
     	double obstacleCount = grid.getObstacles().size();
     	this.obstacleRatio = obstacleCount / totalCells;

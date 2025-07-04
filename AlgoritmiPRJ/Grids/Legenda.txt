@@ -1,5 +1,6 @@
 Legenda tabella:
 --> O = origine
+--> D = destinazione
 --> ■ Nero = ostacolo
 --> . = non ostacolo
 
@@ -10,3 +11,5 @@ Legenda tabella:
 --> ■ Rosso = cella del complemento
 --> ■ Rosso Chiaro = cella frontiera del complemento
 --> - = cella del complemento (file)
+
+--> □ = landmark nella sequenza

@@ -2,7 +2,11 @@ package it.unibs.algoritmiPRJ.utility.printer;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+
 import it.unibs.algoritmiPRJ.compito1.Cell;
+import it.unibs.algoritmiPRJ.compito1.ArrayGrid;
+import it.unibs.algoritmiPRJ.compito3.Landmark;
 import it.unibs.algoritmiPRJ.compito3.MinimumPathResult;
 import it.unibs.algoritmiPRJ.utility.loader.MinimumPathResultLoader;
 
@@ -36,10 +40,14 @@ public class MinimumPathResultPrinter implements Printer {
 	@Override
 	public String print(Object oggetto) throws Exception {
 
+		GridPrinter gridPrinter = new GridPrinter();
+		
 	    Object[] array = (Object[]) oggetto;
-	    MinimumPathResult result = (MinimumPathResult) array[0];
-	    Cell origin = (Cell) array[1];
-	    Cell destination = (Cell) array[2];
+	    ArrayGrid grid = (ArrayGrid) array[0];
+	    MinimumPathResult result = (MinimumPathResult) array[1];
+	    List<Landmark> sequence = result.getLandmarkSequence();
+	    Cell origin = (Cell) array[2];
+	    Cell destination = (Cell) array[3];
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n  Origine: ").append(origin.toString()).append("\n");
@@ -52,8 +60,14 @@ public class MinimumPathResultPrinter implements Printer {
 		} else {
 			sb.append("Lunghezza cammino minimo: ").append(String.format("%.2f", result.getLength())).append("\n");
 			sb.append("Sequenza landmark: ").append(result.getLandmarkSequence()).append("\n");
-			sb.append("Numero di chiamate ricorsive: ").append(result.getRecursiveCalls()).append("\n");
 		}
+		sb.append("Numero di chiamate ricorsive: ").append(result.getRecursiveCalls()).append("\n");
+		sb.append("Numero di celle di frontiera: ").append(result.getFrontierSize()).append("\n");
+		sb.append("Numero iterazioni [lF + lFD < lunghezzaMin]==false: ").append(result.getIterationsFalse()).append("\n");
+		sb.append(" > Correttezza: ").append(result.isCorrect() ? "Sì" : "No").append("\n");
+		sb.append(" > Prestazioni: ").append(String.format("%.2f ms", result.getTimeMs())).append("\n");
+
+		sb.append(gridPrinter.printLandmark(grid, sequence));
 		return sb.toString();
 	}
 }

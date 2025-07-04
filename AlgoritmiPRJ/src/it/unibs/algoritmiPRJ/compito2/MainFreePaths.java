@@ -1,6 +1,6 @@
 package it.unibs.algoritmiPRJ.compito2;
 import it.unibs.algoritmiPRJ.compito1.Cell;
-import it.unibs.algoritmiPRJ.compito1.Grid;
+import it.unibs.algoritmiPRJ.compito1.ArrayGrid;
 import it.unibs.algoritmiPRJ.utility.GestioneInput;
 import it.unibs.algoritmiPRJ.utility.loader.GridLoader;
 import it.unibs.algoritmiPRJ.utility.printer.FreePathsPrinter;
@@ -18,7 +18,7 @@ public class MainFreePaths {
         	// Carica griglia
         	int numGrid = GestioneInput.getIntPosInput(">>> Numero file griglia da caricare: ");
         	String fileName = "Grids/grid_" + numGrid;
-            Grid grid = (Grid) gridLoader.loadFile(fileName);
+            ArrayGrid grid = (ArrayGrid) gridLoader.loadFile(fileName);
             System.out.println("Griglia " + grid.getRows() + "x" + grid.getCols() + " caricata.");
 
             // Imposta Origine
@@ -82,7 +82,7 @@ public class MainFreePaths {
 	 * @param tipo Il tipo di cella da inserire (origine, destinazione, etc.).
 	 * @return La cella valida inserita dall'utente.
 	 */
-    private static Cell getValidCell(Grid grid, String tipo) {
+    private static Cell getValidCell(ArrayGrid grid, String tipo) {
     	System.out.println("");
     	int row=grid.getRows(), col=grid.getCols(), errorCount = 0, rowO, colO;
     	Cell cell;

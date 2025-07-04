@@ -1,5 +1,9 @@
 package it.unibs.algoritmiPRJ.compito1;
 
+/**
+ * Enum che rappresenta i tipi di griglia disponibili per la generazione.
+ * Ogni tipo di griglia ha caratteristiche specifiche per la sperimentazione.
+ */
 public enum GridType {
     RANDOM, // Griglia con ostacoli casuali, caso classico
     MAZE, // Griglia tipo labirinto, con percorsi e ostacoli

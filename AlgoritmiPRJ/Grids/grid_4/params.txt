@@ -1,7 +1,7 @@
 Tipo di griglia: MAZE
-Righe: 50
-Colonne: 50
-Percentuale ostacoli: 0.4992
-Ostacoli generati: 1248
-Seed: 0
-Data generazione: Thu Jul 03 22:02:26 CEST 2025
+Righe: 21
+Colonne: 21
+Percentuale ostacoli: 0.54421768707483
+Ostacoli generati: 240
+Seed: 123456
+Data generazione: Thu Jul 03 22:36:16 CEST 2025

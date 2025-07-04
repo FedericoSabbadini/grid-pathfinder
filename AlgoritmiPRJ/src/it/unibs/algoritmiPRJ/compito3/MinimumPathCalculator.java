@@ -16,17 +16,21 @@ public class MinimumPathCalculator {
 	//========================Attributi========================    
     private final Grid grid;
     private int totalRecursiveCalls;
+    private int iterationsFalse;
+    private int numFrontierCells;
     
     
     //========================Costruttore========================
     /**
 	 * Costruttore della classe MinimumPathCalculator.
 	 * 
-	 * @param grid La griglia su cui calcolare il cammino minimo.
+	 * @param implGrid La griglia su cui calcolare il cammino minimo.
 	 */
     public MinimumPathCalculator(Grid grid) {
         this.grid = grid;
         this.totalRecursiveCalls = 0;
+        this.iterationsFalse = 0;
+        this.numFrontierCells = 0;
     }
     
     
@@ -41,11 +45,29 @@ public class MinimumPathCalculator {
     	// Ottieni gli ostacoli dalla griglia
         Set<Cell> obstacles = grid.getObstacles();
         
-        MinimumPathResult result = camminoMin(origin, destination, obstacles);
-        result.setRecursiveCalls(totalRecursiveCalls);
-        totalRecursiveCalls = 0; // Reset per il prossimo calcolo
         
-        return result;
+        long startTime = System.nanoTime();
+        PathResult result = camminoMin(origin, destination, obstacles);
+        long endTime = System.nanoTime();
+
+        MinimumPathResult minimumPathResult = new MinimumPathResult(
+				result.getLength(),
+				result.getLandmarkSequence(),
+				(endTime - startTime)/ 1_000_000.0, // Tempo di esecuzione in millisecondi
+		        !Double.isInfinite(result.getLength()),
+				totalRecursiveCalls,
+				numFrontierCells,
+				iterationsFalse
+		);
+        
+        PathResult resultCorrect = camminoMin(origin, destination, obstacles);
+        minimumPathResult.setCorrect(isCorrect(result, resultCorrect));
+        totalRecursiveCalls = 0; // Reset per il prossimo calcolo
+        iterationsFalse = 0; // Reset per il prossimo calcolo
+        numFrontierCells = 0; // Reset per il prossimo calcolo
+        
+        
+        return minimumPathResult;
     }
     
     /**
@@ -55,7 +77,7 @@ public class MinimumPathCalculator {
 	 * @param obstacles Un insieme di celle che rappresentano gli ostacoli.
 	 * @return Un oggetto MinimumPathResult contenente la lunghezza del cammino minimo e la sequenza di landmark.
 	 */
-    private MinimumPathResult camminoMin(Cell origin, Cell destination, Set<Cell> obstacles) {
+    private PathResult camminoMin(Cell origin, Cell destination, Set<Cell> obstacles) {
     	
         totalRecursiveCalls++;
         FreePathsExtended  freePathsCalculator = new FreePathsExtended(grid, origin, obstacles);
@@ -70,7 +92,7 @@ public class MinimumPathCalculator {
                     Arrays.asList(new Landmark(origin, 0), new Landmark(destination, 1)),
                     null
                     );
-            return new MinimumPathResult(dlib, seqMin);        }
+            return new PathResult(dlib, seqMin);        }
         
         // ---------- CASO 2: D appartiene al complemento ----------
         Set<Cell> complement = freePathsCalculator.getComplement();
@@ -80,13 +102,13 @@ public class MinimumPathCalculator {
                     Arrays.asList(new Landmark(origin, 0), new Landmark(destination, 2)),
                     null
                     );
-            return new MinimumPathResult(dlib, seqMin);
+            return new PathResult(dlib, seqMin);
         }
         
         // ---------- CASO 3: D non appartiene né al contesto né al complemento ----------
         Set<Landmark> frontier = freePathsCalculator.getFrontiera();
         if (frontier.isEmpty()) 
-            return new MinimumPathResult(Double.POSITIVE_INFINITY, new ArrayList<>());
+            return new PathResult(Double.POSITIVE_INFINITY, new ArrayList<>());
         
         // Converti il Set in una List e ordina per distanza libera dalla destinazione (criterio euristico goloso)
         List<Landmark> sortedFrontier = new ArrayList<>(frontier);
@@ -95,6 +117,7 @@ public class MinimumPathCalculator {
             double dist2 = freePathsCalculator.dLib(l2.getCell(), destination);
             return Double.compare(dist1, dist2);
         });
+        numFrontierCells += sortedFrontier.size();
         
         
         // Inizializzazione per il caso ricorsivo
@@ -113,7 +136,7 @@ public class MinimumPathCalculator {
                 newObstacles.addAll(context);
                 newObstacles.addAll(complement);
                 
-                MinimumPathResult recursiveResult = camminoMin(frontierCell, destination, newObstacles);
+                PathResult recursiveResult = camminoMin(frontierCell, destination, newObstacles);
                 
                 double lTot = lF + recursiveResult.getLength();
                 
@@ -124,9 +147,11 @@ public class MinimumPathCalculator {
                         recursiveResult.getLandmarkSequence()
                     );
                 }
-            }
+            } else {
+				iterationsFalse++;
+			}
         }
-        return new MinimumPathResult(lunghezzaMin, seqMin);
+        return new PathResult(lunghezzaMin, seqMin);
     }
     
     /**
@@ -146,4 +171,15 @@ public class MinimumPathCalculator {
         }
         return result;
     }
+    
+    public boolean isCorrect(PathResult result1, PathResult result2) {
+
+    	if (result1.getLength() == Double.POSITIVE_INFINITY && result2.getLength() == Double.POSITIVE_INFINITY) {
+    		return true; // Entrambi i risultati indicano che la destinazione non è raggiungibile
+		} else {
+			double diff = Math.abs(result1.getLength() - result2.getLength());
+    		return diff < 1e-6; // Considera corretto se la differenza è molto piccola		
+		}
+    }
+    
 }

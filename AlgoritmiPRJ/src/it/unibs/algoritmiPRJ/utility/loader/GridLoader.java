@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 import it.unibs.algoritmiPRJ.compito1.Cell;
 import it.unibs.algoritmiPRJ.compito1.GenerationParams;
-import it.unibs.algoritmiPRJ.compito1.Grid;
+import it.unibs.algoritmiPRJ.compito1.ArrayGrid;
+import it.unibs.algoritmiPRJ.compito1.GridType;
 import it.unibs.algoritmiPRJ.utility.Legenda;
 
 /**
@@ -21,9 +22,9 @@ public class GridLoader implements Loader {
 		int [] gridSize = getGridSize(filePath);
 		int rows = gridSize[0];
 		int cols = gridSize[1];
-    	
+
         try (Scanner scanner = new Scanner(new File(fileGrid))) { 
-            Grid grid = new Grid(rows, cols);
+            ArrayGrid grid = new ArrayGrid(rows, cols);
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     String cellValue = scanner.next();
@@ -49,6 +50,12 @@ public class GridLoader implements Loader {
 		int rows = params.getRows();
 		int cols = params.getCols();
 		
+		GridType gridType = params.getGridType();
+		if (gridType == GridType.MAZE) {
+				rows--;
+				cols--;
+		}
+
 		return new int[]{rows, cols};
 	}
 }

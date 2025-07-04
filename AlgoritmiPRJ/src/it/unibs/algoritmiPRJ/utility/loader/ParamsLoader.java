@@ -18,7 +18,6 @@ public class ParamsLoader implements Loader {
 			int rows = -1;
 			int cols = -1;
 			double obstacleRatio = -1.0;
-			double obstacleNumber = -1.0;
 			long seed = -1;
 			GridType gridType = null;
 			String type = null;
@@ -35,8 +34,6 @@ public class ParamsLoader implements Loader {
 					rows = Integer.parseInt(line.substring("Righe:".length()).trim());
 				} else if (line.startsWith("Colonne:")) {
 					cols = Integer.parseInt(line.substring("Colonne:".length()).trim());
-				} else if (line.startsWith("Ostacoli generati:")) {
-					obstacleNumber = Double.parseDouble(line.substring("Ostacoli generati:".length()).trim());
 				} else if (line.startsWith("Percentuale ostacoli:")) {
 					obstacleRatio = Double.parseDouble(line.substring("Percentuale ostacoli:".length()).trim());
 				} else if (line.startsWith("Seed:")) {
