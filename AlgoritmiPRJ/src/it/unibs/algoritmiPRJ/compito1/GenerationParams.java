@@ -48,7 +48,7 @@ public class GenerationParams {
 		        this.obstacleRatio = 0.05;
 				break;
 			case DENSE:
-		        this.obstacleRatio = 0.5;
+		        this.obstacleRatio = 0.60;
 		        break;
 			default:
 		        this.obstacleRatio = 0;

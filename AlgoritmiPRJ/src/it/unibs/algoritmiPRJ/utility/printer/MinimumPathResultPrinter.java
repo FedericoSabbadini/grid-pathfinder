@@ -64,7 +64,6 @@ public class MinimumPathResultPrinter implements Printer {
 		sb.append("Numero di chiamate ricorsive: ").append(result.getRecursiveCalls()).append("\n");
 		sb.append("Numero di celle di frontiera: ").append(result.getFrontierSize()).append("\n");
 		sb.append("Numero iterazioni [lF + lFD < lunghezzaMin]==false: ").append(result.getIterationsFalse()).append("\n");
-		sb.append(" > Correttezza: ").append(result.isCorrect() ? "Sì" : "No").append("\n");
 		sb.append(" > Prestazioni: ").append(String.format("%.2f ms", result.getTimeMs())).append("\n");
 
 		sb.append(gridPrinter.printLandmark(grid, sequence));

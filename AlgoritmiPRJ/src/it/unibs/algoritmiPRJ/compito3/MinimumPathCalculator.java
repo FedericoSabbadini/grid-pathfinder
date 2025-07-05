@@ -3,7 +3,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import it.unibs.algoritmiPRJ.compito1.Cell;
 import it.unibs.algoritmiPRJ.compito1.Grid;
 
@@ -19,6 +22,8 @@ public class MinimumPathCalculator {
     private int iterationsFalse;
     private int numFrontierCells;
     
+    private final Map<Cell, FreePathsExtended> freePathsCache = new ConcurrentHashMap<>();
+    private final Map<String, PathResult> pathCache = new ConcurrentHashMap<>();
     
     //========================Costruttore========================
     /**
@@ -41,13 +46,13 @@ public class MinimumPathCalculator {
      * @param destination La cella di destinazione.
      * @return Un oggetto MinimumPathResult contenente la lunghezza del cammino minimo e la sequenza di landmark.
      */
-    public MinimumPathResult calculateMinimumPath(Cell origin, Cell destination) {
+    public MinimumPathResult calculateMinimumPath(Cell origin, Cell destination, boolean testCorrect) {
     	// Ottieni gli ostacoli dalla griglia
         Set<Cell> obstacles = grid.getObstacles();
         
         
         long startTime = System.nanoTime();
-        PathResult result = camminoMin(origin, destination, obstacles);
+        PathResult result = camminoMinOpt(origin, destination, obstacles);
         long endTime = System.nanoTime();
 
         MinimumPathResult minimumPathResult = new MinimumPathResult(
@@ -60,8 +65,10 @@ public class MinimumPathCalculator {
 				iterationsFalse
 		);
         
-        PathResult resultCorrect = camminoMin(origin, destination, obstacles);
-        minimumPathResult.setCorrect(isCorrect(result, resultCorrect));
+        if (testCorrect) {
+        	PathResult resultCorrect = camminoMinOpt(origin, destination, obstacles);
+        	minimumPathResult.setCorrect(isCorrect(result, resultCorrect));
+        }
         totalRecursiveCalls = 0; // Reset per il prossimo calcolo
         iterationsFalse = 0; // Reset per il prossimo calcolo
         numFrontierCells = 0; // Reset per il prossimo calcolo
@@ -129,10 +136,14 @@ public class MinimumPathCalculator {
             
             double lF = freePathsCalculator.dLib(frontierCell);
             double lFD = freePathsCalculator.dLib(frontierCell, destination);
-
-            if (lF + lFD < lunghezzaMin) {
+            
+            if (lF + lFD >= lunghezzaMin) {
+				iterationsFalse++;
+				continue;
+            } else {
             	
-                Set<Cell> newObstacles = new HashSet<>(obstacles);
+                Set<Cell> newObstacles = new HashSet<>();
+                newObstacles.addAll(obstacles);
                 newObstacles.addAll(context);
                 newObstacles.addAll(complement);
                 
@@ -147,13 +158,105 @@ public class MinimumPathCalculator {
                         recursiveResult.getLandmarkSequence()
                     );
                 }
-            } else {
-				iterationsFalse++;
-			}
+            }
         }
         return new PathResult(lunghezzaMin, seqMin);
     }
+
     
+    private PathResult camminoMinOpt(Cell origin, Cell destination, Set<Cell> obstacles) {
+    	
+        totalRecursiveCalls++;
+        String key = origin + "->" + destination + "|" + obstacles.hashCode();
+        if (pathCache.containsKey(key)) return pathCache.get(key);
+        FreePathsExtended freePathsCalculator = freePathsCache.computeIfAbsent(origin, cell -> {
+            FreePathsExtended fpe = new FreePathsExtended(grid, cell, obstacles);
+            fpe.calculateContextAndComplement();
+            return fpe;
+        });
+        List<Landmark> seqMin = new ArrayList<>();
+        
+        // ---------- CASO 1: D appartiene al contesto ----------
+        Set<Cell> context = freePathsCalculator.getContext();        
+        if (context.contains(destination)) {
+            double dlib = freePathsCalculator.dLib(destination);
+            seqMin = compatta(
+                    Arrays.asList(new Landmark(origin, 0), new Landmark(destination, 1)),
+                    null
+                    );
+            PathResult result = new PathResult(dlib, seqMin);
+            pathCache.put(key, result);
+            return result;        }
+        
+        // ---------- CASO 2: D appartiene al complemento ----------
+        Set<Cell> complement = freePathsCalculator.getComplement();
+        if (complement.contains(destination)) {
+            double dlib = freePathsCalculator.dLib(destination);
+            seqMin = compatta(
+                    Arrays.asList(new Landmark(origin, 0), new Landmark(destination, 2)),
+                    null
+                    );
+            PathResult result = new PathResult(dlib, seqMin);
+            pathCache.put(key, result);
+            return result;
+        }
+        
+        // ---------- CASO 3: D non appartiene né al contesto né al complemento ----------
+        Set<Landmark> frontier = freePathsCalculator.getFrontiera();
+        if (frontier.isEmpty()) {
+            PathResult result = new PathResult(Double.POSITIVE_INFINITY, new ArrayList<>());
+            pathCache.put(key, result);
+            return result;
+        }
+        // Converti il Set in una List e ordina per distanza libera dalla destinazione (criterio euristico goloso)
+        List<Landmark> sortedFrontier = new ArrayList<>(frontier);
+        sortedFrontier.sort((l1, l2) -> {
+            double dist1 = freePathsCalculator.dLib(l1.getCell(), destination);
+            double dist2 = freePathsCalculator.dLib(l2.getCell(), destination);
+            return Double.compare(dist1, dist2);
+        });
+        numFrontierCells += sortedFrontier.size();
+        
+        
+        // Inizializzazione per il caso ricorsivo
+        double lunghezzaMin = Double.POSITIVE_INFINITY;
+        
+        for (Landmark frontierLandmark : sortedFrontier) { // Itera sui landmark della frontiera ordinata
+            Cell frontierCell = frontierLandmark.getCell();
+            int t = frontierLandmark.getType();
+            
+            double lF = freePathsCalculator.dLib(frontierCell);
+            double lFD = freePathsCalculator.dLib(frontierCell, destination);
+            
+            if (lF + lFD >= lunghezzaMin) {
+				iterationsFalse++;
+				continue;
+            } else {
+            	
+                Set<Cell> newObstacles = new HashSet<>();
+                newObstacles.addAll(obstacles);
+                newObstacles.addAll(context);
+                newObstacles.addAll(complement);
+                
+                PathResult recursiveResult = camminoMinOpt(frontierCell, destination, newObstacles);
+                
+                double lTot = lF + recursiveResult.getLength();
+                
+                if (lTot < lunghezzaMin) {
+                    lunghezzaMin = lTot;
+                    seqMin = compatta(
+                        Arrays.asList(new Landmark(origin, 0), new Landmark(frontierCell, t)),
+                        recursiveResult.getLandmarkSequence()
+                    );
+                }
+            }
+        }
+        
+        PathResult result = new PathResult(lunghezzaMin, seqMin);
+        pathCache.put(key, result);
+        return result;
+    }
+
     /**
 	 * Compattta due sequenze di landmark, mantenendo il primo della prima e tutti tranne il primo della seconda.
 	 * @param seq1 La prima sequenza di landmark.

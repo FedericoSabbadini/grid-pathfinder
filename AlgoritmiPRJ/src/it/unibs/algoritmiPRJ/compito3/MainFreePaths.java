@@ -54,7 +54,7 @@ public class MainFreePaths {
                         Cell destinazione = getValidCell(grid, "destinazione");
                         if (destinazione == null) return;
                         
-                        MinimumPathResult result = calculatorMinimumPath.calculateMinimumPath(origin, destinazione);
+                        MinimumPathResult result = calculatorMinimumPath.calculateMinimumPath(origin, destinazione, false);
                         
                         Object[] printerInput = {grid, result, origin, destinazione};
                         System.out.println(minimumPathPrinter.print(printerInput));

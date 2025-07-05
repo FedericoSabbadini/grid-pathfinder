@@ -14,13 +14,14 @@ import it.unibs.algoritmiPRJ.compito3.MinimumPathResult;
 public class PerformanceAnalyzer {
 
 	//========================Costanti========================
-	private static int NUM_TESTS;
-	
+	private static int NUM_TESTS_C = 10;
+	private static int NUM_TESTS_PT = 30;
+	private static int NUM_TESTS_PS = 12;
+
 
 	//========================Attributi========================
     private final Grid grid;
     private final List<Cell> traversableCells;
-    private final Random random = new Random();
     
     
     //========================Costruttore========================
@@ -33,7 +34,6 @@ public class PerformanceAnalyzer {
     public PerformanceAnalyzer(Grid grid, List<Cell> traversableCells) {
         this.grid = grid;
         this.traversableCells = traversableCells;
-        NUM_TESTS = Math.min(15, traversableCells.size() / 2);
     }
     
     
@@ -45,16 +45,16 @@ public class PerformanceAnalyzer {
      */
     public String testSymmetry() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n----------ANALISI--CORRETTEZZA----------\n");
+		sb.append("\n\n-------------------ANALISI--CORRETTEZZA-------------------\n\n");
 		
 		int errors = 0;
-		
 		// Seleziona casualmente coppie di celle traversabili e calcola il cammino minimo
-		for (int i = 0; i < NUM_TESTS; i++) {
+		for (int i = 0; i < NUM_TESTS_C; i++) {
 			Cell[] cells = selectRandomCell();
-			if (cells == null) continue;
+			if (cells == null) 
+				continue;
 			
-			MinimumPathResult result = new MinimumPathCalculator(grid).calculateMinimumPath(cells[0], cells[1]);
+			MinimumPathResult result = new MinimumPathCalculator(grid).calculateMinimumPath(cells[0], cells[1], true);
 			
 			if (!result.isCorrect) errors++;
 			
@@ -64,7 +64,7 @@ public class PerformanceAnalyzer {
 		}
 		
 		sb.append(String.format("\n>>> Risultato: %d/%d test corretti (%.1f%%)\n\n", 
-				NUM_TESTS - errors, NUM_TESTS, (NUM_TESTS - errors) * 100.0 / NUM_TESTS));
+				NUM_TESTS_C - errors, NUM_TESTS_C, (NUM_TESTS_C - errors) * 100.0 / NUM_TESTS_C));
 		
 		return sb.toString();
 	}
@@ -78,19 +78,19 @@ public class PerformanceAnalyzer {
      */
     public String analyzeByDistance() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n--------------------ANALISI--DISTANZA/TEMPO--------------------\n");
+		sb.append("\n\n--------------------ANALISI--DISTANZA/TEMPO--------------------\n\n");
 		
 		Map<String, List<Double>> timesByDistance = new HashMap<>();
 		String[] categories = {"Vicine (d < 10)", "Medie (10 <= d < 25)", "Lontane (d >= 25)"};
 		
 		Arrays.stream(categories).forEach(c -> timesByDistance.put(c, new ArrayList<>()));
 		
-		for (int i = 0; i < NUM_TESTS*1.2; i++) {
+		for (int i = 0; i < NUM_TESTS_PT; i++) {
 			Cell[] cells = selectRandomCell();
 			if (cells == null) continue;
 			
 			MinimumPathResult result = new MinimumPathCalculator(grid)
-				.calculateMinimumPath(cells[0], cells[1]);
+				.calculateMinimumPath(cells[0], cells[1], false);
 			
 			double distance = result.getLength();
 			
@@ -126,10 +126,10 @@ public class PerformanceAnalyzer {
      */
     public String compareImplementations(Map<String, Grid> implementations) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n------------------------------CONFRONTO--STRUTTURE--DATI------------------------------\n");
+		sb.append("\n\n------------------------------CONFRONTO--STRUTTURE--DATI------------------------------\n");
 		
 		List<Cell[]> cellsList = new ArrayList<>();
-		for (int i = 0; i < NUM_TESTS; i++) {
+		for (int i = 0; i < NUM_TESTS_PS; i++) {
 			Cell[] pair = selectRandomCell();
 			if (pair != null) 
 				cellsList.add(pair);
@@ -151,7 +151,7 @@ public class PerformanceAnalyzer {
 			for (int i = 0; i < cellsList.size(); i++) {
 				Cell[] cells = cellsList.get(i);
 
-				MinimumPathResult result = new MinimumPathCalculator(implGrid).calculateMinimumPath(cells[0], cells[1]);
+				MinimumPathResult result = new MinimumPathCalculator(implGrid).calculateMinimumPath(cells[0], cells[1], false);
 				
 				if (result.isConnected()) {
 					times.add(result.getTimeMs());
@@ -184,7 +184,7 @@ public class PerformanceAnalyzer {
         });
 		
 		// Calcola le statistiche medie per ogni implementazione
-		sb.append("\n>>> CONFRONTO STATISTICHE\n");
+		sb.append("\n\n>>> CONFRONTO STATISTICHE\n");
 		sb.append(String.format("   %-12s | %-10s | %-9s | %-11s | %-9s\n", 
 		                        "Griglia", "Tempo (ms)", "Chiamate", "FrontCells", "Riga16 F"));
 		sb.append("-".repeat(65)).append("\n");
@@ -193,7 +193,7 @@ public class PerformanceAnalyzer {
 		    sb.append(String.format("   %-12s | %10.2f | %9.0f | %11.0f | %9.0f\n", 
 		                            impl, avgs[0], avgs[1], avgs[2], avgs[3]));
 		});
-		sb.append("\n");
+		sb.append("\n\n");
 		return sb.toString(); 
     }
 					
@@ -203,19 +203,12 @@ public class PerformanceAnalyzer {
 	 * @return Un array contenente due celle attraversabili, o null se non ci sono abbastanza celle.
 	 */
     private Cell[] selectRandomCell() {
-        if (traversableCells.size() < 2) return null;
+    	Random random = new Random();
         
         int idx1 = random.nextInt(traversableCells.size());
-        int idx2;
-        do {
-            idx2 = random.nextInt(traversableCells.size());
-        } while (idx1 == idx2 );
+        int idx2 = random.nextInt(traversableCells.size());
         
-        try {
-        	return new Cell[] { traversableCells.get(idx1), traversableCells.get(idx2) };
-        } catch (Exception e) {
-        	e.getMessage();
-        }
-		return selectRandomCell();
+        return new Cell[] { traversableCells.get(idx1), traversableCells.get(idx2) };
+
     }
 }

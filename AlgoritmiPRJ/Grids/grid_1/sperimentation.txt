@@ -1,7 +1,10 @@
-===== SPERIMENTAZIONE CAMMINO MINIMO E STRUTTURE DATI =====
+
+========== SPERIMENTAZIONE CAMMINO MINIMO E STRUTTURE DATI ==========
+
 Griglia: RANDOM [10x20]
 Celle attraversabili: 182
 Ostacoli: 9,0%
+
 
 
 ----------OCCUPAZIONE--IN--MEMORIA----------
@@ -12,128 +15,130 @@ Memoria teorica utilizzata:
  4. Compressed (byte[])  :      57 bytes ( 0,06 kB)   --> Risparmio:   71,5%
 
 
-----------ANALISI--CORRETTEZZA----------
-Test  1: (9,5)  <-> (0,2)   | FreeDistance:   10,24 
-Test  2: (9,4)  <-> (0,16)  | FreeDistance:   15,73 
-Test  3: (5,0)  <-> (9,12)  | FreeDistance:   14,24 
-Test  4: (3,15) <-> (9,18)  | FreeDistance:    7,24 
-Test  5: (0,1)  <-> (7,13)  | FreeDistance:   14,90 
-Test  6: (4,11) <-> (9,3)   | FreeDistance:   10,07 
-Test  7: (2,7)  <-> (6,6)   | FreeDistance:    4,41 
-Test  8: (9,6)  <-> (2,8)   | FreeDistance:    8,66 
-Test  9: (6,12) <-> (9,12)  | FreeDistance:    3,00 
-Test 10: (8,2)  <-> (0,11)  | FreeDistance:   12,31 
-Test 11: (6,18) <-> (0,19)  | FreeDistance:    6,41 
-Test 12: (6,2)  <-> (8,9)   | FreeDistance:    7,83 
-Test 13: (9,16) <-> (2,17)  | FreeDistance:    7,41 
-Test 14: (8,16) <-> (0,15)  | FreeDistance:    8,41 
-Test 15: (8,13) <-> (4,4)   | FreeDistance:   10,66 
 
->>> Risultato: 15/15 test corretti (100,0%)
+-------------------ANALISI--CORRETTEZZA-------------------
+
+Test  1: (1,9)  <-> (9,11)  | FreeDistance:    8,83 
+Test  2: (9,19) <-> (0,3)   | FreeDistance:   19,73 
+Test  3: (6,3)  <-> (9,17)  | FreeDistance:   15,24 
+Test  4: (7,5)  <-> (7,7)   | FreeDistance:    2,00 
+Test  5: (3,9)  <-> (0,14)  | FreeDistance:    6,24 
+Test  6: (9,19) <-> (0,5)   | FreeDistance:   17,73 
+Test  7: (6,5)  <-> (0,0)   | FreeDistance:    8,07 
+Test  8: (2,10) <-> (8,3)   | FreeDistance:    9,49 
+Test  9: (3,2)  <-> (7,0)   | FreeDistance:    5,41 
+Test 10: (8,9)  <-> (9,4)   | FreeDistance:    6,24 
+
+>>> Risultato: 10/10 test corretti (100,0%)
+
 
 
 --------------------ANALISI--DISTANZA/TEMPO--------------------
-Test  1 | FreeDistance:   5,0000 | Tempo:   0,43 ms
-Test  2 | FreeDistance:   2,4142 | Tempo:   0,30 ms
-Test  3 | FreeDistance:   6,2426 | Tempo:   0,77 ms
-Test  4 | FreeDistance:   8,4142 | Tempo:   1,14 ms
-Test  5 | FreeDistance:   7,8284 | Tempo:   0,10 ms
-Test  6 | FreeDistance:   5,4142 | Tempo:   0,10 ms
-Test  7 | FreeDistance:  12,8995 | Tempo:   4,49 ms
-Test  8 | FreeDistance:   8,8284 | Tempo:   1,00 ms
-Test  9 | FreeDistance:   7,8284 | Tempo:   0,14 ms
-Test 10 | FreeDistance:  22,3137 | Tempo:   0,31 ms
-Test 11 | FreeDistance:   4,8284 | Tempo:   0,14 ms
-Test 12 | FreeDistance:   8,8284 | Tempo:   0,10 ms
-Test 13 | FreeDistance:   9,4142 | Tempo:   0,10 ms
-Test 14 | FreeDistance:   5,2426 | Tempo:   0,11 ms
-Test 15 | FreeDistance:   4,4142 | Tempo:   0,06 ms
-Test 16 | FreeDistance:   9,0711 | Tempo:   0,07 ms
-Test 17 | FreeDistance:   1,0000 | Tempo:   0,06 ms
-Test 18 | FreeDistance:   6,2426 | Tempo:   0,06 ms
+
+Test  1 | FreeDistance:  15,6569 | Tempo:   6,03 ms
+Test  2 | FreeDistance:   8,8284 | Tempo:   0,40 ms
+Test  3 | FreeDistance:  13,4142 | Tempo:   0,09 ms
+Test  4 | FreeDistance:  18,0711 | Tempo:   0,51 ms
+Test  5 | FreeDistance:   9,8284 | Tempo:   0,10 ms
+Test  6 | FreeDistance:   2,4142 | Tempo:   0,10 ms
+Test  7 | FreeDistance:   6,8284 | Tempo:   0,07 ms
+Test  8 | FreeDistance:   7,6569 | Tempo:   0,36 ms
+Test  9 | FreeDistance:   8,2426 | Tempo:   0,48 ms
+Test 10 | FreeDistance:   4,0000 | Tempo:   0,06 ms
+Test 11 | FreeDistance:  15,6569 | Tempo:   5,67 ms
+Test 12 | FreeDistance:  17,2426 | Tempo:   1,43 ms
+Test 13 | FreeDistance:   5,8284 | Tempo:   0,04 ms
+Test 14 | FreeDistance:   3,8284 | Tempo:   0,04 ms
+Test 15 | FreeDistance:   9,4853 | Tempo:   0,05 ms
+Test 16 | FreeDistance:  17,0000 | Tempo:   0,04 ms
+Test 17 | FreeDistance:  17,0711 | Tempo:   0,04 ms
+Test 18 | FreeDistance:   4,4142 | Tempo:   0,04 ms
+Test 19 | FreeDistance:   9,8284 | Tempo:   0,81 ms
+Test 20 | FreeDistance:   7,2426 | Tempo:   0,03 ms
+Test 21 | FreeDistance:   7,8284 | Tempo:   0,03 ms
+Test 22 | FreeDistance:  11,6569 | Tempo:   0,34 ms
+Test 23 | FreeDistance:   9,4142 | Tempo:   0,04 ms
+Test 24 | FreeDistance:  12,6569 | Tempo:   0,04 ms
+Test 25 | FreeDistance:  10,6569 | Tempo:   0,04 ms
+Test 26 | FreeDistance:  11,6569 | Tempo:   0,03 ms
+Test 27 | FreeDistance:   9,2426 | Tempo:   0,33 ms
+Test 28 | FreeDistance:   6,2426 | Tempo:   0,26 ms
+Test 29 | FreeDistance:   4,4142 | Tempo:   0,03 ms
+Test 30 | FreeDistance:  11,4853 | Tempo:   0,03 ms
 
 >>> Statistiche per categoria:
-  [Medie (10 <= d < 25)]:   2,40 ms (media su  2 campioni)
-  [Vicine (d < 10)     ]:   0,29 ms (media su 16 campioni)
+  [Medie (10 <= d < 25)]:   1,19 ms (media su 12 campioni)
+  [Vicine (d < 10)     ]:   0,18 ms (media su 18 campioni)
+
 
 
 ------------------------------CONFRONTO--STRUTTURE--DATI------------------------------
 
   [  Array2D  ]
-Coppia  1: ( 1, 2) → ( 7,17) | Tempo: 1,5338 ms | Chiamate: 5    | Frontiere: 53  | Riga16 Falsi: 49 
-Coppia  2: ( 0, 9) → ( 0,10) | Tempo: 0,0628 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  3: ( 7,19) → ( 6,12) | Tempo: 0,2485 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  4: ( 9, 9) → ( 3, 0) | Tempo: 0,0866 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  5: ( 4,17) → ( 0, 1) | Tempo: 0,0735 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  6: ( 5,19) → ( 6, 7) | Tempo: 9,5803 ms | Chiamate: 25   | Frontiere: 226 | Riga16 Falsi: 202
-Coppia  7: ( 9,17) → ( 3,10) | Tempo: 0,1452 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  8: ( 0,19) → ( 3,16) | Tempo: 0,0921 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  9: ( 5,14) → ( 4,12) | Tempo: 0,0622 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 10: ( 9, 6) → ( 7, 9) | Tempo: 0,5240 ms | Chiamate: 3    | Frontiere: 15  | Riga16 Falsi: 13 
-Coppia 11: ( 9,14) → ( 8,13) | Tempo: 0,0866 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 12: ( 2,13) → ( 4, 6) | Tempo: 0,0539 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 13: ( 4, 9) → ( 7, 1) | Tempo: 0,0883 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 14: ( 2, 7) → ( 2,15) | Tempo: 0,0720 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 15: ( 0, 5) → ( 3,18) | Tempo: 0,0623 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  1: ( 0, 6) → ( 8,16) | Tempo: 0,0368 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  2: ( 1,14) → ( 0,18) | Tempo: 0,0304 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  3: ( 0, 2) → ( 9, 6) | Tempo: 0,1257 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  4: ( 4, 2) → ( 5,14) | Tempo: 0,0327 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  5: ( 7,19) → ( 2, 7) | Tempo: 0,0221 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  6: ( 5, 2) → ( 9,16) | Tempo: 0,0294 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  7: ( 9, 2) → ( 6, 3) | Tempo: 0,0561 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  8: ( 8, 8) → ( 4, 7) | Tempo: 0,0303 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  9: ( 4,14) → ( 0,10) | Tempo: 0,0323 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia 10: ( 6, 0) → ( 6, 5) | Tempo: 0,1328 ms | Chiamate: 3    | Frontiere: 15  | Riga16 Falsi: 13 
+Coppia 11: ( 1,11) → ( 1,19) | Tempo: 0,0269 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia 12: ( 8, 2) → ( 9, 0) | Tempo: 0,0253 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
 
   [  BitSet  ]
-Coppia  1: ( 1, 2) → ( 7,17) | Tempo: 12,9921 ms | Chiamate: 5    | Frontiere: 53  | Riga16 Falsi: 49 
-Coppia  2: ( 0, 9) → ( 0,10) | Tempo: 0,6571 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  3: ( 7,19) → ( 6,12) | Tempo: 0,2223 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  4: ( 9, 9) → ( 3, 0) | Tempo: 0,6301 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  5: ( 4,17) → ( 0, 1) | Tempo: 0,7310 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  6: ( 5,19) → ( 6, 7) | Tempo: 18,6971 ms | Chiamate: 25   | Frontiere: 226 | Riga16 Falsi: 202
-Coppia  7: ( 9,17) → ( 3,10) | Tempo: 0,1788 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  8: ( 0,19) → ( 3,16) | Tempo: 0,2014 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  9: ( 5,14) → ( 4,12) | Tempo: 0,3900 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 10: ( 9, 6) → ( 7, 9) | Tempo: 0,6422 ms | Chiamate: 3    | Frontiere: 15  | Riga16 Falsi: 13 
-Coppia 11: ( 9,14) → ( 8,13) | Tempo: 0,1674 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 12: ( 2,13) → ( 4, 6) | Tempo: 0,2548 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 13: ( 4, 9) → ( 7, 1) | Tempo: 0,4717 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 14: ( 2, 7) → ( 2,15) | Tempo: 0,1164 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 15: ( 0, 5) → ( 3,18) | Tempo: 0,1294 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  1: ( 0, 6) → ( 8,16) | Tempo: 0,6576 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  2: ( 1,14) → ( 0,18) | Tempo: 0,1676 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  3: ( 0, 2) → ( 9, 6) | Tempo: 0,1805 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  4: ( 4, 2) → ( 5,14) | Tempo: 0,1761 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  5: ( 7,19) → ( 2, 7) | Tempo: 0,1436 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  6: ( 5, 2) → ( 9,16) | Tempo: 0,1712 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  7: ( 9, 2) → ( 6, 3) | Tempo: 0,1140 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  8: ( 8, 8) → ( 4, 7) | Tempo: 0,1078 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  9: ( 4,14) → ( 0,10) | Tempo: 0,1053 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia 10: ( 6, 0) → ( 6, 5) | Tempo: 0,3491 ms | Chiamate: 3    | Frontiere: 15  | Riga16 Falsi: 13 
+Coppia 11: ( 1,11) → ( 1,19) | Tempo: 0,0863 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia 12: ( 8, 2) → ( 9, 0) | Tempo: 0,0933 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
 
   [  Sparse  ]
-Coppia  1: ( 1, 2) → ( 7,17) | Tempo: 24,4037 ms | Chiamate: 5    | Frontiere: 53  | Riga16 Falsi: 49 
-Coppia  2: ( 0, 9) → ( 0,10) | Tempo: 0,2305 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  3: ( 7,19) → ( 6,12) | Tempo: 0,2365 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  4: ( 9, 9) → ( 3, 0) | Tempo: 0,6541 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  5: ( 4,17) → ( 0, 1) | Tempo: 0,2970 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  6: ( 5,19) → ( 6, 7) | Tempo: 10,0387 ms | Chiamate: 25   | Frontiere: 226 | Riga16 Falsi: 202
-Coppia  7: ( 9,17) → ( 3,10) | Tempo: 0,0953 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  8: ( 0,19) → ( 3,16) | Tempo: 0,2390 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  9: ( 5,14) → ( 4,12) | Tempo: 0,1600 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 10: ( 9, 6) → ( 7, 9) | Tempo: 0,4965 ms | Chiamate: 3    | Frontiere: 15  | Riga16 Falsi: 13 
-Coppia 11: ( 9,14) → ( 8,13) | Tempo: 0,1561 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 12: ( 2,13) → ( 4, 6) | Tempo: 0,1453 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 13: ( 4, 9) → ( 7, 1) | Tempo: 0,2495 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 14: ( 2, 7) → ( 2,15) | Tempo: 0,1402 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 15: ( 0, 5) → ( 3,18) | Tempo: 0,1069 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  1: ( 0, 6) → ( 8,16) | Tempo: 0,4747 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  2: ( 1,14) → ( 0,18) | Tempo: 0,4053 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  3: ( 0, 2) → ( 9, 6) | Tempo: 0,5050 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  4: ( 4, 2) → ( 5,14) | Tempo: 0,4845 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  5: ( 7,19) → ( 2, 7) | Tempo: 0,3800 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  6: ( 5, 2) → ( 9,16) | Tempo: 0,3478 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  7: ( 9, 2) → ( 6, 3) | Tempo: 0,1628 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  8: ( 8, 8) → ( 4, 7) | Tempo: 0,1428 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  9: ( 4,14) → ( 0,10) | Tempo: 0,1535 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia 10: ( 6, 0) → ( 6, 5) | Tempo: 0,5015 ms | Chiamate: 3    | Frontiere: 15  | Riga16 Falsi: 13 
+Coppia 11: ( 1,11) → ( 1,19) | Tempo: 0,0952 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia 12: ( 8, 2) → ( 9, 0) | Tempo: 0,1068 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
 
   [  Compressed  ]
-Coppia  1: ( 1, 2) → ( 7,17) | Tempo: 5,3064 ms | Chiamate: 5    | Frontiere: 53  | Riga16 Falsi: 49 
-Coppia  2: ( 0, 9) → ( 0,10) | Tempo: 0,0830 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  3: ( 7,19) → ( 6,12) | Tempo: 0,0600 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  4: ( 9, 9) → ( 3, 0) | Tempo: 0,0616 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  5: ( 4,17) → ( 0, 1) | Tempo: 0,2090 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  6: ( 5,19) → ( 6, 7) | Tempo: 7,7995 ms | Chiamate: 25   | Frontiere: 226 | Riga16 Falsi: 202
-Coppia  7: ( 9,17) → ( 3,10) | Tempo: 0,1010 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  8: ( 0,19) → ( 3,16) | Tempo: 0,1692 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia  9: ( 5,14) → ( 4,12) | Tempo: 0,0609 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 10: ( 9, 6) → ( 7, 9) | Tempo: 0,4158 ms | Chiamate: 3    | Frontiere: 15  | Riga16 Falsi: 13 
-Coppia 11: ( 9,14) → ( 8,13) | Tempo: 0,0597 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 12: ( 2,13) → ( 4, 6) | Tempo: 0,1526 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 13: ( 4, 9) → ( 7, 1) | Tempo: 0,0493 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 14: ( 2, 7) → ( 2,15) | Tempo: 0,5034 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
-Coppia 15: ( 0, 5) → ( 3,18) | Tempo: 0,0456 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  1: ( 0, 6) → ( 8,16) | Tempo: 0,3604 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  2: ( 1,14) → ( 0,18) | Tempo: 0,2007 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  3: ( 0, 2) → ( 9, 6) | Tempo: 0,2167 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  4: ( 4, 2) → ( 5,14) | Tempo: 0,1024 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  5: ( 7,19) → ( 2, 7) | Tempo: 0,0871 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  6: ( 5, 2) → ( 9,16) | Tempo: 0,0989 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  7: ( 9, 2) → ( 6, 3) | Tempo: 0,0942 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  8: ( 8, 8) → ( 4, 7) | Tempo: 0,3135 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  9: ( 4,14) → ( 0,10) | Tempo: 0,2206 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia 10: ( 6, 0) → ( 6, 5) | Tempo: 0,4565 ms | Chiamate: 3    | Frontiere: 15  | Riga16 Falsi: 13 
+Coppia 11: ( 1,11) → ( 1,19) | Tempo: 0,0824 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia 12: ( 8, 2) → ( 9, 0) | Tempo: 0,0898 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+
 
 >>> CONFRONTO STATISTICHE
    Griglia      | Tempo (ms) | Chiamate  | FrontCells  | Riga16 F 
--------------------------------------------------------
-   BitSet       |       2,43 |         3 |          20 |        18
-   Array2D      |       0,85 |         3 |          20 |        18
-   Sparse       |       2,51 |         3 |          20 |        18
-   Compressed   |       1,01 |         3 |          20 |        18
+-----------------------------------------------------------------
+   BitSet       |       0,20 |         1 |           1 |         1
+   Array2D      |       0,05 |         1 |           1 |         1
+   Sparse       |       0,31 |         1 |           1 |         1
+   Compressed   |       0,19 |         1 |           1 |         1
+
 
 
 ------------------------------ANALISI--SCALABILITA'------------------------------
@@ -152,3 +157,9 @@ Griglia 5000000 celle (2236x2236 circa):
   Array2D    |     4882,8 kB
   BitSet     |      610,4 kB
   Sparse     |    14062,6 kB
+
+
+
+---------- TEMPO--DI--SPERIMENTAZIONE ----------
+
+Tempo totale: 54,852 ms

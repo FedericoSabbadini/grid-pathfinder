@@ -18,8 +18,12 @@ public class ExperimentationPrinter implements Printer {
 		ExperimentationSystem system = (ExperimentationSystem) oggetto;
 		
 		String printedSperimentation = system.runExperimentation();
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filepath + "/sperimentation.txt"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filepath + "/sperimentationOpt.txt"))) {
             writer.print(printedSperimentation);
+            
+            System.out.println("\nSperimentazione completata!");
+            System.out.println("File salvato in: " + filepath + "/sperimentationOpt.txt");
+
         } catch (IOException e) {
 			System.err.println("Errore durante il salvataggio della griglia: " + e.getMessage());
 		}

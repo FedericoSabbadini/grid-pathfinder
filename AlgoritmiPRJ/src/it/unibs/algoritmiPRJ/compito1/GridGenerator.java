@@ -52,13 +52,7 @@ public class GridGenerator {
 	        case DENSE:
 	            return generateRandomGrid(params);
 	        case PATTERN:
-	        	Random random = new Random();
-	        	boolean rand = random.nextBoolean();
-	        	if (rand) {
-	        		return generatePatternRegolareDGrid(params);
-				} else {
-					return generatePatternRegolareOGrid(params);
-	        	}
+	        	return generatePatternRegolareOGrid(params);
 	        case ROOMS_AND_CORRIDORS:
 	            return generateRoomsAndCorridorsGrid(params);
 	        case RANDOM:
@@ -118,55 +112,58 @@ public class GridGenerator {
         int rows = params.getRows();
         int cols = params.getCols();
 
-        // Assicurarsi che le dimensioni siano dispari per il labirinto
+        // Imposta dimensioni dispari
         if (rows % 2 == 0) rows--;
         if (cols % 2 == 0) cols--;
 
         ArrayGrid grid = new ArrayGrid(rows, cols);
-        // Inizializza tutto come ostacolo
-        for (int r = 0; r < rows; r++) 
-            for (int c = 0; c < cols; c++) 
-                grid.setObstacle(new Cell(r, c));
-                
-        // Rimuovi ostacoli per creare un accesso
-        Cell entrance = new Cell(1, 0);
-        grid.removeObstacle(entrance);
-        Cell exit = new Cell(rows - 2, cols - 1);
-        grid.removeObstacle(exit);
 
-        // Inizia la generazione del labirinto da un punto di partenza
+        // Inizializza tutto come ostacolo
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                grid.setObstacle(new Cell(r, c));
+            }
+        }
+
+        // Ingresso e uscita
+        grid.removeObstacle(new Cell(1, 0));
+        grid.removeObstacle(new Cell(rows - 2, cols - 1));
+
+        // Genera il labirinto
         carveMaze(grid, 1, 1, rows, cols);
 
         return grid;
     }
 
-    /**
-     * Crea un labirinto rimuovendo ostacoli in modo ricorsivo.
-     * @param grid La griglia su cui lavorare.
-     * @param r la riga corrente.
-     * @param c la colonna corrente.
-     * @param maxRows il numero massimo di righe della griglia.
-     * @param maxCols il numero massimo di colonne della griglia.
-     */
     private void carveMaze(ArrayGrid grid, int r, int c, int maxRows, int maxCols) {
         grid.removeObstacle(new Cell(r, c));
-        int[][] directions = {{0,2}, {0,-2}, {2,0}, {-2,0}};
+
+        // Direzioni: 8 movimenti (ortogonali + diagonali)
+        int[][] directions = {
+            { 0,  2}, { 0, -2}, { 2,  0}, {-2,  0}, // ortogonali
+            { 2,  2}, { 2, -2}, {-2, 2}, {-2, -2}   // diagonali
+        };
+
         shuffleArray(directions);
+
         for (int[] d : directions) {
             int nr = r + d[0];
             int nc = c + d[1];
-            if (nr > 0 && nr < maxRows && nc > 0 && nc < maxCols && !grid.isTraversable(new Cell(nr, nc))) {
-                // Rimuovi muro intermedio
-                grid.removeObstacle(new Cell(r + d[0]/2, c + d[1]/2));
+
+            // Limiti e controllo celle ancora bloccate
+            if (nr > 0 && nr < maxRows && nc > 0 && nc < maxCols &&
+                !grid.isTraversable(new Cell(nr, nc))) {
+                
+                // Rimuovi muro intermedio (per diagonale va bene dividere per 2)
+                int wallR = r + d[0] / 2;
+                int wallC = c + d[1] / 2;
+                grid.removeObstacle(new Cell(wallR, wallC));
+
                 carveMaze(grid, nr, nc, maxRows, maxCols);
             }
         }
     }
 
-    /**
-	 * Mescola un array di celle utilizzando l'algoritmo Fisher-Yates.
-	 * @param array L'array di celle da mescolare.
-	 */
     private void shuffleArray(int[][] array) {
         for (int i = array.length - 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
@@ -174,31 +171,6 @@ public class GridGenerator {
             array[i] = array[j];
             array[j] = temp;
         }
-    }
-
-
-    /**Genera una griglia con un PATTERN OBLIQUO regolare di ostacoli.
-	 * Il pattern può essere basato su righe, colonne o diagonali.
-	 * 
-	 * @param params Parametri di generazione della griglia, inclusi numero di righe e colonne.
-	 * @return Una griglia generata con un pattern regolare di ostacoli.
-	 */
-    private ArrayGrid generatePatternRegolareDGrid(GenerationParams params) {
-        int rows = params.getRows();
-        int cols = params.getCols();
-
-        ArrayGrid grid = new ArrayGrid(rows, cols);
-        int spacing = random.nextInt(4) + 1;
-
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols; c++) {
-                if ((r + c) % spacing == 0) {
-                    grid.setObstacle(new Cell(r, c));
-                }
-            }
-        }
-        
-        return grid;
     }
     
     /**Genera una griglia con un PATTERN ORTOGONALE regolare di ostacoli.
@@ -224,7 +196,6 @@ public class GridGenerator {
         
         return grid;
     }
-
 
     /**
      * Genera una griglia con stanze quadrate regolarmente distribuite e corridoi che le collegano.

@@ -1,7 +1,7 @@
 Tipo di griglia: DENSE
-Righe: 15
-Colonne: 21
-Percentuale ostacoli: 0.5015873015873016
-Ostacoli generati: 158
+Righe: 20
+Colonne: 32
+Percentuale ostacoli: 0.6
+Ostacoli generati: 384
 Seed: 0
-Data generazione: Fri Jul 04 13:02:04 CEST 2025
+Data generazione: Sat Jul 05 22:16:17 CEST 2025

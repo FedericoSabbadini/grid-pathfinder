@@ -33,6 +33,7 @@ public class ExperimentationSystem {
     public String runExperimentation() {
     	
     	StringBuilder output = new StringBuilder();
+        long startTime = System.nanoTime();
     	
     	output.append(initializeOutput());
     	output.append(memoryAnalyzer.analyze());
@@ -41,6 +42,15 @@ public class ExperimentationSystem {
     	output.append(performanceAnalyzer.compareImplementations(gridImplementations));
     	output.append(memoryAnalyzer.analyzeScalability());
     	
+    	
+        long endTime = System.nanoTime();
+        String sperimentationTime = String.format(
+        	    "\n\n\n\n---------- TEMPO--DI--SPERIMENTAZIONE ----------\n" +
+        	    "\nTempo totale: %.3f ms\n", 
+        	    (endTime - startTime) / 1_000_000.0
+        	);				
+        output.append(sperimentationTime);
+        
 		return output.toString();
     }
     
@@ -50,10 +60,9 @@ public class ExperimentationSystem {
 	 * @return Stringa di intestazione del file di output.
 	 */
     private String initializeOutput() {
-		return String.format("===== SPERIMENTAZIONE CAMMINO MINIMO E STRUTTURE DATI =====\n" +
+		return String.format("\n========== SPERIMENTAZIONE CAMMINO MINIMO E STRUTTURE DATI ==========\n\n" +
 							 "Griglia: %s [%dx%d]\nCelle attraversabili: %d\nOstacoli: %.1f%%\n\n",
 							 params.getGridType(), params.getRows(), params.getCols(),
 							 traversableCells.size(), params.getObstacleRatio() * 100);
 	}
- 
 }

@@ -36,7 +36,7 @@ public class MemoryAnalyzer {
      */
     public String analyze() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n----------OCCUPAZIONE--IN--MEMORIA----------\n");
+		sb.append("\n\n----------OCCUPAZIONE--IN--MEMORIA----------\n");
 		
 		int totalCells = params.getRows() * params.getCols();
 		int obstacles = totalCells - traversableCount;

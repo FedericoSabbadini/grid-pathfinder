@@ -36,14 +36,14 @@ public class ExperimentationMain {
             
             // Esegue sperimentazione
             ExperimentationSystem system = new ExperimentationSystem(grid, params);
+
             printer.saveToFile(gridPath, system);
-            
-            System.out.println("\nSperimentazione completata!");
-            System.out.println("File salvato in: " + gridPath + "/sperimentazione.txt");
-            
+                        
         } catch (Exception e) {
             System.err.println("Errore: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+        	GestioneInput.chiudiScanner();
         }
     }
 }
