@@ -89,7 +89,8 @@ public class MinimumPathCalculator {
 	 * @param obstacles Un insieme di celle che rappresentano gli ostacoli.
 	 * @return Un oggetto PathResult contenente la lunghezza del cammino minimo e la sequenza di landmark.
 	 */
-    private PathResult camminoMin(Cell origin, Cell destination, Set<Cell> obstacles) {
+    @SuppressWarnings("unused")
+	private PathResult camminoMin(Cell origin, Cell destination, Set<Cell> obstacles) {
     	
         totalRecursiveCalls++;
         FreePathsExtended  freePathsCalculator = new FreePathsExtended(grid, origin, obstacles);
