@@ -1,7 +1,6 @@
 package it.unibs.algoritmiPRJ.utility.loader;
 import java.io.File;
 import java.util.Scanner;
-
 import it.unibs.algoritmiPRJ.compito1.Cell;
 import it.unibs.algoritmiPRJ.compito1.GenerationParams;
 import it.unibs.algoritmiPRJ.compito1.ArrayGrid;
@@ -40,6 +39,14 @@ public class GridLoader implements Loader {
 		}
 	}
 	
+	/**
+	 * Ottiene le dimensioni della griglia da un file di parametri.
+	 * Se il tipo di griglia è un labirinto, le dimensioni vengono aggiustate per essere dispari.
+	 *
+	 * @param filePath Il percorso del file dei parametri.
+	 * @return Un array contenente il numero di righe e colonne della griglia.
+	 * @throws Exception Se non è possibile caricare i parametri o se il file non esiste.
+	 */
 	private int[] getGridSize(String filePath) throws Exception {
 		ParamsLoader paramsLoader = new ParamsLoader();
 		GenerationParams params = (GenerationParams) paramsLoader.loadFile(filePath);

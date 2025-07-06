@@ -68,6 +68,13 @@ public class FreePathsPrinter implements Printer {
 		return sb.toString();
 	}
 	
+	/**
+	 * Stampa l'oggetto FreePaths su un file.
+	 * @param filepath Il percorso del file in cui salvare i dati.
+	 * @param freePaths L'oggetto FreePaths da stampare.
+	 * @return Una stringa che rappresenta il contenuto del file.
+	 * @throws Exception Se si verifica un errore durante la scrittura del file.
+	 */
 	private String printToFile(String filepath, FreePaths freePaths) throws Exception {
 		Cell origin = freePaths.getOrigin();
 		Set<Landmark> frontiera = freePaths.getFrontiera();

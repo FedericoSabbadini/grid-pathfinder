@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Classe che rappresenta una cella in una griglia.
- * Ogni cella è identificata da una riga e una colonna.
+ * La classe Cell rappresenta una cella in una griglia, identificata da una riga e una colonna.
+ * Fornisce metodi per ottenere le coordinate della cella, verificare l'uguaglianza tra celle,
+ * calcolare l'hash code e ottenere le celle vicine.
  */
 public class Cell {
 

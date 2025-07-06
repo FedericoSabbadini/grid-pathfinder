@@ -27,5 +27,5 @@ public class Legenda {
     public static final String FRONTIERA_CONTESTO =  AZZURRO_CHIARO + "■" + RESET;
     public static final String FRONTIERA_COMPLEMENTO =  ROSSO_CHIARO + "■" + RESET;
     public static final String LANDMARK = "□";
-
+    
 }

@@ -2,8 +2,9 @@ package it.unibs.algoritmiPRJ.compito1;
 import java.util.*;
 
 /**
- * Grid rappresenta una griglia di celle, dove ogni cella può essere traversabile o contenere un ostacolo.
- * La griglia è definita da un numero di righe e colonne, e può essere salvata su file o caricata da un file.
+ * Classe che rappresenta una griglia bidimensionale di celle.
+ * La griglia è implementata come un array 2D di booleani, dove true indica che la cella è attraversabile
+ * e false indica che la cella è un ostacolo.
  */
 public class ArrayGrid implements Grid {
 	

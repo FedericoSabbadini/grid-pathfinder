@@ -6,10 +6,9 @@ import it.unibs.algoritmiPRJ.compito3.MinimumPathCalculator;
 import it.unibs.algoritmiPRJ.compito3.MinimumPathResult;
 
 /**
- * Classe per analizzare le prestazioni di diverse implementazioni di griglie
- * e calcolare il cammino minimo tra celle traversabili.
- * Fornisce metodi per testare la simmetria, analizzare le prestazioni per distanza
- * e confrontare implementazioni diverse.
+ * Classe per analizzare le prestazioni degli algoritmi di cammino minimo su una griglia.
+ * Esegue test di correttezza, analisi delle prestazioni in base alla distanza tra celle
+ * e confronto tra diverse implementazioni di griglie.
  */
 public class PerformanceAnalyzer {
 
@@ -38,11 +37,13 @@ public class PerformanceAnalyzer {
     
     
     //========================Metodi========================
-    /**
-     * Testa la correttezza tra coppie di celle attraversabili.
-     * 
-     * @return Stringa che riassume i risultati del test di simmetria tra coppie di celle.
-     */
+	/**
+	 * Esegue un test di correttezza per verificare se il cammino minimo tra coppie di celle
+	 * è calcolato correttamente. Seleziona casualmente coppie di celle traversabili e verifica
+	 * se il cammino minimo è corretto.
+	 * 
+	 * @return Stringa che riassume i risultati del test di correttezza.
+	 */
     public String testSymmetry() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n\n-------------------ANALISI--CORRETTEZZA-------------------\n\n");
@@ -200,7 +201,7 @@ public class PerformanceAnalyzer {
 	/**
 	 * Seleziona una coppia casuale di celle attraversabili dalla lista.
 	 * 
-	 * @return Un array contenente due celle attraversabili, o null se non ci sono abbastanza celle.
+	 * @return Un array contenente due celle attraversabili
 	 */
     private Cell[] selectRandomCell() {
     	Random random = new Random();

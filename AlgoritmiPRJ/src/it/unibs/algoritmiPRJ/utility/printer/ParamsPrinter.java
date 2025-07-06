@@ -8,7 +8,6 @@ import it.unibs.algoritmiPRJ.compito1.GenerationParams;
 /**
  * Classe che implementa l'interfaccia Printer per stampare
  * i parametri di generazione su file.
- * 
  */
 public class ParamsPrinter implements Printer {
 

@@ -6,13 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
 import it.unibs.algoritmiPRJ.compito1.Cell;
 import it.unibs.algoritmiPRJ.compito1.Grid;
 
 /**
- * Classe per il calcolo del cammino minimo tra due celle in una griglia,
- * considerando ostacoli e percorsi liberi.
+ * Calcola il cammino minimo tra due celle della griglia, escludendo gli ostacoli.
+ * Utilizza un algoritmo ricorsivo ottimizzato con memoization per migliorare le prestazioni.
  */
 public class MinimumPathCalculator {
 	
@@ -22,7 +21,9 @@ public class MinimumPathCalculator {
     private int iterationsFalse;
     private int numFrontierCells;
     
+    // Cache per memorizzare i risultati dei calcoli delle celle libere e dei cammini
     private final Map<Cell, FreePathsExtended> freePathsCache = new ConcurrentHashMap<>();
+    // Cache per memorizzare i risultati dei cammini minimi già calcolati
     private final Map<String, PathResult> pathCache = new ConcurrentHashMap<>();
     
     //========================Costruttore========================
@@ -40,16 +41,18 @@ public class MinimumPathCalculator {
     
     
     //========================Metodi========================   
-    /**
-     * Calcola il cammino minimo tra due celle della griglia, escludendo gli ostacoli.
-     * @param origin La cella di partenza.
-     * @param destination La cella di destinazione.
-     * @return Un oggetto MinimumPathResult contenente la lunghezza del cammino minimo e la sequenza di landmark.
-     */
+	/**
+	 * Calcola il cammino minimo tra due celle della griglia, escludendo gli ostacoli.
+	 * 
+	 * @param origin La cella di partenza.
+	 * @param destination La cella di destinazione.
+	 * @param testCorrect Se true, verifica la correttezza del risultato confrontandolo con un calcolo alternativo.
+	 * @return Un oggetto MinimumPathResult contenente la lunghezza del cammino minimo, la sequenza di landmark,
+	 *         il tempo di esecuzione e altre informazioni utili.
+	 */
     public MinimumPathResult calculateMinimumPath(Cell origin, Cell destination, boolean testCorrect) {
     	// Ottieni gli ostacoli dalla griglia
         Set<Cell> obstacles = grid.getObstacles();
-        
         
         long startTime = System.nanoTime();
         PathResult result = camminoMinOpt(origin, destination, obstacles);
@@ -65,6 +68,7 @@ public class MinimumPathCalculator {
 				iterationsFalse
 		);
         
+        // valuta se effettuare il test di correttezza
         if (testCorrect) {
         	PathResult resultCorrect = camminoMinOpt(origin, destination, obstacles);
         	minimumPathResult.setCorrect(isCorrect(result, resultCorrect));
@@ -73,16 +77,17 @@ public class MinimumPathCalculator {
         iterationsFalse = 0; // Reset per il prossimo calcolo
         numFrontierCells = 0; // Reset per il prossimo calcolo
         
-        
         return minimumPathResult;
     }
     
+
     /**
-	 * Algoritmo ricorsivo per calcolare il cammino minimo tra due celle, escludendo gli ostacoli.
+	 * Calcola il cammino minimo tra due celle della griglia, escludendo gli ostacoli.
+	 * 
 	 * @param origin La cella di partenza.
 	 * @param destination La cella di destinazione.
 	 * @param obstacles Un insieme di celle che rappresentano gli ostacoli.
-	 * @return Un oggetto MinimumPathResult contenente la lunghezza del cammino minimo e la sequenza di landmark.
+	 * @return Un oggetto PathResult contenente la lunghezza del cammino minimo e la sequenza di landmark.
 	 */
     private PathResult camminoMin(Cell origin, Cell destination, Set<Cell> obstacles) {
     	
@@ -163,17 +168,29 @@ public class MinimumPathCalculator {
         return new PathResult(lunghezzaMin, seqMin);
     }
 
-    
+    /**
+	 * Calcola il cammino minimo tra due celle della griglia, escludendo gli ostacoli.
+	 * Utilizza un algoritmo ricorsivo con memorization per migliorare le prestazioni.
+	 * 
+	 * @param origin La cella di partenza.
+	 * @param destination La cella di destinazione.
+	 * @param obstacles Un insieme di celle che rappresentano gli ostacoli.
+	 * @return Un oggetto PathResult contenente la lunghezza del cammino minimo e la sequenza di landmark.
+	 */
     private PathResult camminoMinOpt(Cell origin, Cell destination, Set<Cell> obstacles) {
     	
-        totalRecursiveCalls++;
+        totalRecursiveCalls++;	
+        
+        // Crea una chiave unica per la cache basata su origine, destinazione e ostacoli
         String key = origin + "->" + destination + "|" + obstacles.hashCode();
+        // Controlla se il risultato è già stato calcolato
         if (pathCache.containsKey(key)) return pathCache.get(key);
         FreePathsExtended freePathsCalculator = freePathsCache.computeIfAbsent(origin, cell -> {
             FreePathsExtended fpe = new FreePathsExtended(grid, cell, obstacles);
             fpe.calculateContextAndComplement();
             return fpe;
         });
+        
         List<Landmark> seqMin = new ArrayList<>();
         
         // ---------- CASO 1: D appartiene al contesto ----------
@@ -185,6 +202,7 @@ public class MinimumPathCalculator {
                     null
                     );
             PathResult result = new PathResult(dlib, seqMin);
+            // Memorizza il risultato nella cache
             pathCache.put(key, result);
             return result;        }
         
@@ -197,6 +215,7 @@ public class MinimumPathCalculator {
                     null
                     );
             PathResult result = new PathResult(dlib, seqMin);
+            // Memorizza il risultato nella cache
             pathCache.put(key, result);
             return result;
         }
@@ -205,6 +224,7 @@ public class MinimumPathCalculator {
         Set<Landmark> frontier = freePathsCalculator.getFrontiera();
         if (frontier.isEmpty()) {
             PathResult result = new PathResult(Double.POSITIVE_INFINITY, new ArrayList<>());
+            // Memorizza il risultato nella cache
             pathCache.put(key, result);
             return result;
         }
@@ -230,7 +250,7 @@ public class MinimumPathCalculator {
             
             if (lF + lFD >= lunghezzaMin) {
 				iterationsFalse++;
-				continue;
+				continue; // Salta questa iterazione
             } else {
             	
                 Set<Cell> newObstacles = new HashSet<>();
@@ -238,6 +258,7 @@ public class MinimumPathCalculator {
                 newObstacles.addAll(context);
                 newObstacles.addAll(complement);
                 
+                // Calcola il cammino minimo ricorsivamente
                 PathResult recursiveResult = camminoMinOpt(frontierCell, destination, newObstacles);
                 
                 double lTot = lF + recursiveResult.getLength();
@@ -253,6 +274,7 @@ public class MinimumPathCalculator {
         }
         
         PathResult result = new PathResult(lunghezzaMin, seqMin);
+        // Memorizza il risultato nella cache
         pathCache.put(key, result);
         return result;
     }
@@ -275,6 +297,15 @@ public class MinimumPathCalculator {
         return result;
     }
     
+    /**
+	 * Verifica se due risultati di cammino minimo sono corretti confrontando le loro lunghezze.
+	 * Considera corretto se entrambi i risultati indicano che la destinazione non è raggiungibile
+	 * o se la differenza tra le loro lunghezze è molto piccola.
+	 * 
+	 * @param result1 Il primo risultato del cammino minimo.
+	 * @param result2 Il secondo risultato del cammino minimo.
+	 * @return true se i risultati sono considerati corretti, false altrimenti.
+	 */
     public boolean isCorrect(PathResult result1, PathResult result2) {
 
     	if (result1.getLength() == Double.POSITIVE_INFINITY && result2.getLength() == Double.POSITIVE_INFINITY) {
@@ -283,6 +314,5 @@ public class MinimumPathCalculator {
 			double diff = Math.abs(result1.getLength() - result2.getLength());
     		return diff < 1e-6; // Considera corretto se la differenza è molto piccola		
 		}
-    }
-    
+    }   
 }

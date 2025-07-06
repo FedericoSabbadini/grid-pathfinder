@@ -83,5 +83,4 @@ public class SparseGrid implements Grid {
                col >= 0 && col < getCols() && 
                isTraversable(row, col);
     }
-    
 }

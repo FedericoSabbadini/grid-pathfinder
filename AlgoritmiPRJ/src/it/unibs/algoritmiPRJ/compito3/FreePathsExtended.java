@@ -50,9 +50,8 @@ public class FreePathsExtended extends FreePaths {
 	 */
     public double dLib(Cell origin, Cell destination) {
     	// Controlla se le celle di origine e destinazione sono attraversabili
-    	if (!grid.isTraversable(origin) || !grid.isTraversable(destination)) {
+    	if (!grid.isTraversable(origin) || !grid.isTraversable(destination)) 
 			return -1;
-		}
 		
 		int dCol = destination.getCol(), dRow = destination.getRow();
 		int x = Math.abs(dCol - origin.getCol()), y = Math.abs(dRow - origin.getRow());

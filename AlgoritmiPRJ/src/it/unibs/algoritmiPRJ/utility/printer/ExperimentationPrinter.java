@@ -1,9 +1,7 @@
 package it.unibs.algoritmiPRJ.utility.printer;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import it.unibs.algoritmiPRJ.compito4.ExperimentationSystem;
 
 /**
@@ -34,6 +32,4 @@ public class ExperimentationPrinter implements Printer {
 		// TODO Auto-generated method stub
 		return null;
 	}
-    
-    
 }

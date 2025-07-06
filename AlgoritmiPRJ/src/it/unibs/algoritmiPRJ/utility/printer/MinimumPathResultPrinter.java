@@ -3,7 +3,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import it.unibs.algoritmiPRJ.compito1.Cell;
 import it.unibs.algoritmiPRJ.compito1.ArrayGrid;
 import it.unibs.algoritmiPRJ.compito3.Landmark;
@@ -11,7 +10,7 @@ import it.unibs.algoritmiPRJ.compito3.MinimumPathResult;
 import it.unibs.algoritmiPRJ.utility.loader.MinimumPathResultLoader;
 
 /**
- * Classe per stampare i risultati del calcolo del cammino minimo.
+ * Classe per la stampa dei risultati del calcolo del cammino minimo.
  * Implementa l'interfaccia Printer.
  */
 public class MinimumPathResultPrinter implements Printer {
@@ -32,9 +31,7 @@ public class MinimumPathResultPrinter implements Printer {
 			writer.print(concatPaths);
 		} catch (IOException e) {
 			System.err.println("Errore durante il salvataggio: " + e.getMessage());
-		} 
-		
-		
+		}
 	}
 
 	@Override

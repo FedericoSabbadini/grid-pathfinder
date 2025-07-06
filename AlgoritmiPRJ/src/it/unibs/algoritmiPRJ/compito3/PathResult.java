@@ -2,7 +2,7 @@ package it.unibs.algoritmiPRJ.compito3;
 import java.util.List;
 
 /**
- * Rappresenta il risultato del calcolo del cammino minimo tra due landmark.
+ * Rappresenta il risultato del calcolo di un cammino minimo tra due landmark.
  * Contiene la lunghezza del cammino e la sequenza di landmark attraversati.
  */
 public class PathResult {

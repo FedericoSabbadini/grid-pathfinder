@@ -9,6 +9,8 @@ import it.unibs.algoritmiPRJ.compito1.*;
  */
 public class ExperimentationSystem {
     
+	
+	//========================Attributi========================
     private final ArrayGrid originalGrid;
     private final GenerationParams params;
     private final List<Cell> traversableCells;
@@ -16,6 +18,13 @@ public class ExperimentationSystem {
     private final MemoryAnalyzer memoryAnalyzer;
     private final PerformanceAnalyzer performanceAnalyzer;
     
+    
+    //========================Costruttore========================
+    /**
+     * Costruttore per inizializzare il sistema di sperimentazione.
+     * @param grid Griglia originale da testare.
+     * @param params Parametri di generazione della griglia.
+     */
     public ExperimentationSystem(ArrayGrid grid, GenerationParams params) {
         this.originalGrid = grid;
         this.params = params;
@@ -25,6 +34,8 @@ public class ExperimentationSystem {
         this.performanceAnalyzer = new PerformanceAnalyzer(originalGrid, traversableCells);
     }
     
+    
+    //========================Metodi========================
     /**
 	 * Esegue la sperimentazione analizzando le prestazioni degli algoritmi di cammino minimo
 	 * su diverse implementazioni di griglie e parametri di generazione.

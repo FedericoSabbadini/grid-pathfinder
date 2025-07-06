@@ -26,6 +26,7 @@ public class FreePaths {
     /**
 	 * Costruttore che accetta una griglia.
 	 * @param grid2 Griglia su cui calcolare i cammini liberi.
+	 * @param origin Cella di origine da cui partire per i calcoli.
 	 */
     public FreePaths(Grid grid, Cell origin) {
         this.grid = grid;
@@ -96,6 +97,13 @@ public class FreePaths {
 	/**
 	 * Verifica se esiste un cammino libero tra due celle.
 	 * Evita creazione di oggetti Cell non necessari.
+	 * @param oRow Riga di origine
+	 * @param oCol Colonna di origine
+	 * @param dRow Riga di destinazione
+	 * @param dCol Colonna di destinazione
+	 * @param isType1 Indica se il cammino è di tipo 1 (diagonale -> ortogonale) 
+	 * 			 o di tipo 2 (ortogonale -> diagonale)
+	 * @return true se esiste un cammino libero, false altrimenti
 	 */
     private boolean hasValidFreePath(int oRow, int oCol, int dRow, int dCol, boolean isType1) {
         // Early termination
@@ -159,33 +167,42 @@ public class FreePaths {
     
 	/**
 	 * Verifica se il cammino tra due celle è libero in una direzione specifica.
+	 * Controlla se tutte le celle intermedie sono attraversabili.
+	 * @param startRow Riga di partenza
+	 * @param startCol Colonna di partenza
+	 * @param endRow Riga di destinazione
+	 * @param endCol Colonna di destinazione
+	 * @param rowDir Direzione della riga (+1, -1 o 0)
+	 * @param colDir Direzione della colonna (+1, -1 o 0)
+	 * @return true se il cammino è libero, false altrimenti
 	 */
     private boolean isPathClear(int startRow, int startCol, int endRow, int endCol, int rowDir, int colDir) {
         int row = startRow;
         int col = startCol;
         
         while (true) {
-            if (row == endRow && col == endCol) {
+            if (row == endRow && col == endCol) 
                 return true;
-            }
             
             row += rowDir;
             col += colDir;
             
-            if (!grid.isValid(row, col)) {
+            if (!grid.isValid(row, col)) 
                 return false;
-            }
         }
     }
     
-	/**
+    /**
 	 * Calcola la distanza libera tra la cella di origine e una destinazione.
+	 * Utilizza la formula di Manhattan per il calcolo della distanza.
+	 * 
+	 * @param destination Cella di destinazione.
+	 * @return La distanza libera tra l'origine e la destinazione, o -1 se non è possibile raggiungere la destinazione.
 	 */
     public double dLib(Cell destination) {
         if (!grid.isTraversable(origin) || 
-            !grid.isTraversable(destination)) {
+            !grid.isTraversable(destination)) 
             return -1;
-        }
         
     	int dCol = destination.getCol(), dRow = destination.getRow();
         int x = Math.abs(dCol - origin.getCol()), y = Math.abs(dRow - origin.getRow());
@@ -193,9 +210,11 @@ public class FreePaths {
         
         return Math.sqrt(2) * min + (max - min);
     }
-    
+
     /**
-     * Verifica se una cella è attraversabile.
+     *  Verifica se una cella è attraversabile nella griglia.
+     * @param cell Cella da verificare.
+     * @return true se la cella è attraversabile, false altrimenti.
      */
     public boolean isTraversable(Cell cell) {
 		return grid.isTraversable(cell);
@@ -203,14 +222,17 @@ public class FreePaths {
     
     /**
 	 * Verifica se una cella è valida nella griglia.
+	 * @param cell Cella da verificare.
+	 * @return true se la cella è valida, false altrimenti.
 	 */
     public boolean isValid(Cell cell) {
     	return grid.isValid(cell);
     }
     
     /**
-	 * Restituisce l'insieme delle celle di frontiera.
-	 */
+     *  Restituisce l'insieme delle celle di frontiera.
+     * @return Un insieme di celle di frontiera.
+     */
     public Set<Landmark> getFrontiera() {
     	Set<Landmark> frontiera = new HashSet<>();
     	
@@ -223,14 +245,17 @@ public class FreePaths {
     }
 
     /**
-	 * Verifica se una cella è una cella di frontiera.
+	 *  Verifica se una cella è una cella di frontiera.
+	 *  Una cella è considerata di frontiera se ha almeno un vicino attraversabile
+	 *  che non è presente nel contesto o nel complemento.
+	 * @param cell Cella da verificare.
+	 * @return true se la cella è una cella di frontiera, false altrimenti.
 	 */
 	private boolean isFrontierCell(Cell cell) {
         for (Cell neighbor : cell.getAllNeighbors()) {
             if (isValid(neighbor) && isTraversable(neighbor) && 
-            		!getContext().contains(neighbor) && !getComplement().contains(neighbor)) {
+            		!getContext().contains(neighbor) && !getComplement().contains(neighbor)) 
                 return true;
-            }
         }
         return false;
     }

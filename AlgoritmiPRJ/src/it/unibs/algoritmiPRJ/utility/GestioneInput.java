@@ -1,7 +1,6 @@
 package it.unibs.algoritmiPRJ.utility;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import it.unibs.algoritmiPRJ.compito1.GridType;
 
 /**
@@ -62,7 +61,7 @@ public class GestioneInput {
      * Ottiene un input intero non negativo dall'utente.
      * 
      * @param message Messaggio da visualizzare all'utente.
-     * @return
+     * @return Un numero intero non negativo inserito dall'utente.
      */
     public static int getIntNonNegInput(String message) {
         while (true) {
@@ -135,9 +134,7 @@ public class GestioneInput {
     }
 
     /**
-	 * Ottiene un input stringa dall'utente.
-	 * @param message Messaggio da visualizzare all'utente.
-	 * @return La stringa inserita dall'utente.
+     * Chiude lo scanner utilizzato per l'input.
 	 */
     public static void chiudiScanner() {
         scanner.close();

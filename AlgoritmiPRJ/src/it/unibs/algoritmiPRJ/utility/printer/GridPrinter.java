@@ -3,7 +3,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import it.unibs.algoritmiPRJ.compito1.Cell;
 import it.unibs.algoritmiPRJ.compito1.ArrayGrid;
 import it.unibs.algoritmiPRJ.compito3.Landmark;
@@ -43,6 +42,14 @@ public class GridPrinter implements Printer {
         return sb.toString();
 	}
 	
+	/**
+	 * Stampa la griglia con i landmark in un formato leggibile.
+	 * 
+	 * @param grid La griglia da stampare.
+	 * @param sequence La sequenza di landmark da stampare.
+	 * @return Una stringa che rappresenta la griglia con i landmark.
+	 * @throws Exception Se si verifica un errore durante la stampa.
+	 */
 	public String printLandmark(ArrayGrid grid, List<Landmark> sequence) throws Exception {
 		StringBuilder sb = new StringBuilder();
 		

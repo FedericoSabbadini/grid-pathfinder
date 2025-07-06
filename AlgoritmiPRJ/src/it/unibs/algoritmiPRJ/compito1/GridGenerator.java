@@ -75,12 +75,10 @@ public class GridGenerator {
     	int cols = params.getCols();
 		double obstacleRatio = params.getObstacleRatio();
         
-        // Creazione della griglia e calcolo del numero di ostacoli
         ArrayGrid grid = new ArrayGrid(rows, cols);
         int totalCells = rows * cols;
         int obstacleCount = (int) Math.round(totalCells * obstacleRatio);
         
-        // Array di indici lineari invece di int[][]
         int[] indices = new int[totalCells];
         for (int i = 0; i < totalCells; i++) {
             indices[i] = i;
@@ -93,7 +91,6 @@ public class GridGenerator {
             indices[i] = indices[j];
             indices[j] = temp;
             
-            // Converto da indice lineare a coordinate
             int row = indices[i] / cols;
             int col = indices[i] % cols;
             grid.setObstacle(new Cell(row, col));
@@ -150,11 +147,11 @@ public class GridGenerator {
             int nr = r + d[0];
             int nc = c + d[1];
 
-            // Limiti e controllo celle ancora bloccate
+            // Controlla se la cella è valida e se non è già stata visitata
             if (nr > 0 && nr < maxRows && nc > 0 && nc < maxCols &&
                 !grid.isTraversable(new Cell(nr, nc))) {
                 
-                // Rimuovi muro intermedio (per diagonale va bene dividere per 2)
+            	// Rimuovi il muro tra la cella corrente e la nuova cella
                 int wallR = r + d[0] / 2;
                 int wallC = c + d[1] / 2;
                 grid.removeObstacle(new Cell(wallR, wallC));
@@ -164,6 +161,12 @@ public class GridGenerator {
         }
     }
 
+    /**
+	 * Mescola un array di celle utilizzando l'algoritmo Fisher-Yates.
+	 * Questo metodo è utilizzato per randomizzare le posizioni degli ostacoli.
+	 * 
+	 * @param array L'array di celle da mescolare.
+	 */
     private void shuffleArray(int[][] array) {
         for (int i = array.length - 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
@@ -259,7 +262,6 @@ public class GridGenerator {
                 }
             }
         }
-
         return grid;
     }
 }
