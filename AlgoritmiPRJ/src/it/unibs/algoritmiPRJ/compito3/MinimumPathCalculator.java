@@ -21,8 +21,6 @@ public class MinimumPathCalculator {
     private int iterationsFalse;
     private int numFrontierCells;
     
-    // Cache per memorizzare i risultati dei calcoli delle celle libere e dei cammini
-    private final Map<Cell, FreePathsExtended> freePathsCache = new ConcurrentHashMap<>();
     // Cache per memorizzare i risultati dei cammini minimi già calcolati
     private final Map<String, PathResult> pathCache = new ConcurrentHashMap<>();
     
@@ -184,14 +182,9 @@ public class MinimumPathCalculator {
         
         // Crea una chiave unica per la cache basata su origine, destinazione e ostacoli
         String key = origin + "->" + destination + "|" + obstacles.hashCode();
-        // Controlla se il risultato è già stato calcolato
-        if (pathCache.containsKey(key)) return pathCache.get(key);
-        FreePathsExtended freePathsCalculator = freePathsCache.computeIfAbsent(origin, cell -> {
-            FreePathsExtended fpe = new FreePathsExtended(grid, cell, obstacles);
-            fpe.calculateContextAndComplement();
-            return fpe;
-        });
-        
+
+        FreePathsExtended  freePathsCalculator = new FreePathsExtended(grid, origin, obstacles);
+        freePathsCalculator.calculateContextAndComplement();
         List<Landmark> seqMin = new ArrayList<>();
         
         // ---------- CASO 1: D appartiene al contesto ----------
