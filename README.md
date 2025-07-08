@@ -2,7 +2,7 @@
 
 Algoritmo ricorsivo per il calcolo di cammini minimi in griglie bidimensionali con ostacoli, sviluppato come progetto per il corso di *Algoritmi e Strutture Dati* (a.a. 2024-25).
 
-## 📌 Descrizione
+## Descrizione
 
 Il progetto si articola in due componenti principali:
 - **Generatore di griglie** configurabili con ostacoli di diverse tipologie: semplici, agglomerati, diagonali, delimitatori, a barre, ecc.
@@ -10,20 +10,20 @@ Il progetto si articola in due componenti principali:
 
 L'algoritmo sfrutta cammini liberi di tipo 1 e 2, costruisce contesto, complemento e frontiere, e utilizza un approccio ricorsivo per esplorare la griglia con efficienza.
 
-## 🧮 Funzionalità
+## Funzionalità
 
 - Generazione casuale o semi-casuale di griglie personalizzabili.
 - Calcolo del cammino minimo e sua rappresentazione come sequenza di mosse.
 - Analisi della distanza libera (`dlib`) tra celle.
 - Sperimentazione delle prestazioni in base a parametri configurabili.
 
-## ⚙️ Requisiti
+## Requisiti
 
 - Linguaggio: Java
 - Input/Output da/per file
 - attenzione a riuso e manutenibilità del codice
 
-## 📈 Sperimentazione
+## Sperimentazione
 
 Include:
 - confronto tra invocazioni con ordine invertito (O,D e D,O)
