@@ -45,7 +45,7 @@ public class MemoryAnalyzer {
 		long[] memories = {
 			totalCells,                    // Array2D
 			(totalCells + 7) / 8 + 64,     // BitSet
-			obstacles * 32L + 64,          // Sparse
+			obstacles * 32L + 64,          // Sparse, memorizzati solo ostacoli
 			(totalCells + 7) / 8 + 32      // Compressed
 		};
 		String[] names = {"Array2D (boolean[][])", "BitSet", "Sparse (Set<Cell>)", "Compressed (byte[])"};

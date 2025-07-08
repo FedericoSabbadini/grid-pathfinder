@@ -1,0 +1,11 @@
+# File contenente i cammini minimi calcolati
+
+  Origine: (1,1)
+  Destinazione: (5,5)
+Destinazione non raggiungibile!
+Lunghezza: ∞
+Sequenza landmark: []
+Numero di chiamate ricorsive: 1
+Numero di celle di frontiera: 0
+Numero iterazioni [lF + lFD < lunghezzaMin]==false: 0
+ > Prestazioni: 5,36 ms

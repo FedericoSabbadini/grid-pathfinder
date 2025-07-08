@@ -17,7 +17,7 @@ public class CompressedGrid implements Grid {
 	
 	//========================Attributi========================
     private final int rows, cols;
-    private final byte[] obstacles;
+    private final byte[] cells;
     
     
     //========================Costruttore========================
@@ -29,7 +29,7 @@ public class CompressedGrid implements Grid {
     public CompressedGrid(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
-        this.obstacles = new byte[(rows * cols + 7) / 8];
+        this.cells = new byte[(rows * cols + 7) / 8];
     }
     
     
@@ -45,7 +45,7 @@ public class CompressedGrid implements Grid {
     @Override
     public boolean isTraversable(Cell cell) {
         int index = cell.getRow() * cols + cell.getCol();
-        return (obstacles[index / 8] & (1 << (index % 8))) == 0;
+        return (cells[index / 8] & (1 << (index % 8))) == 0;
     }
     @Override
     public boolean isTraversable(int row, int col) {
@@ -55,7 +55,7 @@ public class CompressedGrid implements Grid {
     @Override
     public void setObstacle(Cell cell) {
         int index = cell.getRow() * cols + cell.getCol();
-        obstacles[index / 8] |= (1 << (index % 8));
+        cells[index / 8] |= (1 << (index % 8));
     }
     
     @Override

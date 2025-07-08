@@ -1,0 +1,87 @@
+
+========== SPERIMENTAZIONE CAMMINO MINIMO E STRUTTURE DATI ==========
+
+Griglia: DENSE [20x15]
+Celle attraversabili: 120
+Ostacoli: 60,0%
+
+
+
+----------OCCUPAZIONE--IN--MEMORIA----------
+Memoria teorica utilizzata:
+ 1. Array2D (boolean[][]):     300 bytes ( 0,29 kB)   --> Default
+ 2. BitSet               :     102 bytes ( 0,10 kB)   --> Risparmio:   66,0%
+ 3. Sparse (Set<Cell>)   :    5824 bytes ( 5,69 kB)   --> Risparmio: -1841,3%
+ 4. Compressed (byte[])  :      70 bytes ( 0,07 kB)   --> Risparmio:   76,7%
+
+
+
+-------------------ANALISI--CORRETTEZZA-------------------
+
+Test  1: (14,0) <-> (14,2)  | FreeDistance:    2,00 
+Test  2: (1,13) <-> (18,9)  | FreeDistance: Infinity 
+Test  3: (10,13)<-> (12,2)  | FreeDistance: Infinity 
+Test  4: (1,4)  <-> (6,12)  | FreeDistance: Infinity 
+Test  5: (18,13)<-> (16,2)  | FreeDistance: Infinity 
+Test  6: (16,5) <-> (11,4)  | FreeDistance: Infinity 
+Test  7: (7,5)  <-> (15,2)  | FreeDistance: Infinity 
+Test  8: (12,4) <-> (18,5)  | FreeDistance: Infinity 
+Test  9: (0,7)  <-> (16,4)  | FreeDistance: Infinity 
+Test 10: (16,13)<-> (5,5)   | FreeDistance: Infinity 
+
+>>> Risultato: 10/10 test corretti (100,0%)
+
+
+
+--------------------ANALISI--DISTANZA/TEMPO--------------------
+
+Test  4 | FreeDistance:   2,4142 | Tempo:   0,06 ms
+Test 12 | FreeDistance:   1,0000 | Tempo:   0,06 ms
+Test 19 | FreeDistance:   1,4142 | Tempo:   0,02 ms
+Test 20 | FreeDistance:   2,8284 | Tempo:   0,02 ms
+Test 28 | FreeDistance:   3,8284 | Tempo:   0,02 ms
+
+>>> Statistiche per categoria:
+  [Vicine (d < 10)     ]:   0,04 ms (media su  5 campioni)
+
+
+
+------------------------------CONFRONTO--STRUTTURE--DATI------------------------------
+
+  [  Array2D  ]
+
+  [  BitSet  ]
+
+  [  Sparse  ]
+
+  [  Compressed  ]
+
+
+>>> CONFRONTO STATISTICHE
+   Griglia      | Tempo (ms) | Chiamate  | FrontCells  | Riga16 F 
+-----------------------------------------------------------------
+
+
+
+------------------------------ANALISI--SCALABILITA'------------------------------
+
+Griglia 10000 celle (100x100 circa):
+  Array2D    |        9,8 kB
+  BitSet     |        1,3 kB
+  Sparse     |      187,6 kB
+
+Griglia 200000 celle (447x447 circa):
+  Array2D    |      195,3 kB
+  BitSet     |       24,5 kB
+  Sparse     |     3750,1 kB
+
+Griglia 5000000 celle (2236x2236 circa):
+  Array2D    |     4882,8 kB
+  BitSet     |      610,4 kB
+  Sparse     |    93750,1 kB
+
+
+
+---------- TEMPO--DI--SPERIMENTAZIONE ----------
+
+Tempo totale: 226,999 ms

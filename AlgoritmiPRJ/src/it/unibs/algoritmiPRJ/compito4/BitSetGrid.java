@@ -17,7 +17,7 @@ public class BitSetGrid implements Grid {
 	
 	//========================Attributi========================
     private final int rows, cols;
-    private final BitSet obstacles;
+    private final BitSet cells;
     
     
     //========================Costruttori========================
@@ -31,7 +31,7 @@ public class BitSetGrid implements Grid {
     public BitSetGrid(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
-        this.obstacles = new BitSet(rows * cols);
+        this.cells = new BitSet(rows * cols);
     }
     
     
@@ -46,7 +46,7 @@ public class BitSetGrid implements Grid {
     //========================Metodi========================
     @Override
     public boolean isTraversable(Cell cell) {
-        return !obstacles.get(cell.getRow() * cols + cell.getCol());
+        return !cells.get(cell.getRow() * cols + cell.getCol());
     }
     @Override
     public boolean isTraversable(int row, int col) {
@@ -55,7 +55,7 @@ public class BitSetGrid implements Grid {
     
     @Override
     public void setObstacle(Cell cell) {
-        obstacles.set(cell.getRow() * cols + cell.getCol());
+        cells.set(cell.getRow() * cols + cell.getCol());
     }
     
     @Override
@@ -73,7 +73,7 @@ public class BitSetGrid implements Grid {
     @Override
     public Set<Cell> getObstacles() {
         Set<Cell> obs = new HashSet<>();
-        for (int i = obstacles.nextSetBit(0); i >= 0; i = obstacles.nextSetBit(i + 1)) {
+        for (int i = cells.nextSetBit(0); i >= 0; i = cells.nextSetBit(i + 1)) {
             obs.add(new Cell(i / cols, i % cols));
         }
         return obs;

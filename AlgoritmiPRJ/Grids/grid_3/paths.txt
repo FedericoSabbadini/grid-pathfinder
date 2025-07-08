@@ -1,0 +1,55 @@
+# File contenente i cammini minimi calcolati
+
+  Origine: (1,0)
+  Destinazione: (5,5)
+Destinazione non raggiungibile!
+Lunghezza: ∞
+Sequenza landmark: []
+Numero di chiamate ricorsive: 1
+Numero di celle di frontiera: 0
+Numero iterazioni [lF + lFD < lunghezzaMin]==false: 0
+ > Prestazioni: 10,27 ms
+
+  Origine: (5,5)
+  Destinazione: (14,19)
+Destinazione non raggiungibile!
+Lunghezza: ∞
+Sequenza landmark: []
+Numero di chiamate ricorsive: 988
+Numero di celle di frontiera: 987
+Numero iterazioni [lF + lFD < lunghezzaMin]==false: 0
+ > Prestazioni: 78,44 ms
+
+  Origine: (5,5)
+  Destinazione: (14,14)
+Destinazione non raggiungibile!
+Lunghezza: ∞
+Sequenza landmark: []
+Numero di chiamate ricorsive: 988
+Numero di celle di frontiera: 987
+Numero iterazioni [lF + lFD < lunghezzaMin]==false: 0
+ > Prestazioni: 52,92 ms
+
+  Origine: (5,5)
+  Destinazione: (5,14)
+Lunghezza cammino minimo: 10,66
+Sequenza landmark: [((5,5): 0), ((6,6): 1), ((5,11): 1), ((6,13): 2), ((5,14): 1)]
+Numero di chiamate ricorsive: 23
+Numero di celle di frontiera: 46
+Numero iterazioni [lF + lFD < lunghezzaMin]==false: 24
+ > Prestazioni: 3,65 ms
+■ ■ . ■ ■ ■ ■ . ■ . ■ . ■ ■ . ■ . . . . 
+. ■ ■ ■ . . . ■ . . ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ 
+■ ■ ■ . ■ . ■ ■ ■ . ■ ■ . ■ ■ ■ . ■ ■ ■ 
+■ ■ . ■ ■ . ■ . ■ . ■ ■ ■ . ■ ■ . . ■ ■ 
+. . ■ ■ ■ . . ■ ■ . ■ . ■ ■ . ■ . ■ ■ ■ 
+. ■ . ■ . O ■ . . . . □ . ■ D ■ . . . ■ 
+■ . . ■ . ■ □ ■ ■ ■ ■ ■ ■ □ ■ . . . ■ ■ 
+■ . ■ ■ . ■ ■ ■ ■ ■ . . ■ . ■ ■ . . ■ ■ 
+■ . . . . ■ ■ ■ . . ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ 
+■ ■ . ■ . ■ ■ ■ . . . ■ ■ ■ . ■ ■ ■ ■ ■ 
+■ ■ ■ ■ ■ ■ . ■ . . . . . . . ■ ■ ■ . ■ 
+■ ■ ■ ■ ■ ■ . . ■ ■ . ■ ■ ■ . ■ ■ . ■ . 
+■ . . . . . . ■ ■ ■ ■ ■ . . ■ ■ . ■ . . 
+■ . . ■ . ■ . . ■ ■ . ■ ■ . ■ . ■ . . . 
+■ ■ ■ . ■ ■ ■ ■ . . . ■ ■ ■ . ■ . ■ ■ . 
