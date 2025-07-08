@@ -16,17 +16,16 @@ L'algoritmo sfrutta cammini liberi di tipo 1 e 2, costruisce contesto, complemen
 - Calcolo del cammino minimo e sua rappresentazione come sequenza di mosse.
 - Analisi della distanza libera (`dlib`) tra celle.
 - Sperimentazione delle prestazioni in base a parametri configurabili.
-- Possibilità di interrompere il calcolo e ottenere il miglior risultato parziale (solo per gruppi da tre persone).
 
 ## ⚙️ Requisiti
 
 - Linguaggio: Java
-- Nessuna GUI richiesta
 - Input/Output da/per file
+- attenzione a riuso e manutenibilità del codice
 
 ## 📈 Sperimentazione
 
 Include:
 - confronto tra invocazioni con ordine invertito (O,D e D,O)
 - valutazione delle prestazioni temporali e spaziali
-- confronto tra condizioni alternative all’interno dell’algoritmo (opzionale)
+- confronto tra condizioni alternative all’interno dell’algoritmo
