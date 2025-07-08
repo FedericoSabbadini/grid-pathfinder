@@ -7,6 +7,8 @@ Algoritmo ricorsivo per il calcolo di cammini minimi in griglie bidimensionali c
 Il progetto si articola in due componenti principali:
 - **Generatore di griglie** configurabili con ostacoli di diverse tipologie: semplici, agglomerati, diagonali, delimitatori, a barre, ecc.
 - **Algoritmo CAMMINOMIN** che, data una griglia e due celle attraversabili (origine e destinazione), calcola un cammino minimo (se esiste), restituendo la sequenza dei landmark e la lunghezza.
+- **ExperimentationSystem** che, data una griglia, ne valuta la correttezza e le prestazioni temporali e spaziali a seguito di molteplici invocazioni dell’algoritmo
+
 
 L'algoritmo sfrutta cammini liberi di tipo 1 e 2, costruisce contesto, complemento e frontiere, e utilizza un approccio ricorsivo per esplorare la griglia con efficienza.
 
@@ -22,10 +24,3 @@ L'algoritmo sfrutta cammini liberi di tipo 1 e 2, costruisce contesto, complemen
 - Linguaggio: Java
 - Input/Output da/per file
 - attenzione a riuso e manutenibilità del codice
-
-## Sperimentazione
-
-Include:
-- confronto tra invocazioni con ordine invertito (O,D e D,O)
-- valutazione delle prestazioni temporali e spaziali
-- confronto tra condizioni alternative all’interno dell’algoritmo
