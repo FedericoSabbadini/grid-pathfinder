@@ -4,7 +4,7 @@ Algoritmo ricorsivo per il calcolo di cammini minimi in griglie bidimensionali c
 
 ## Descrizione
 
-Il progetto si articola in due componenti principali:
+Il progetto si articola in 3 componenti principali:
 - **Generatore di griglie** configurabili con ostacoli di diverse tipologie: semplici, agglomerati, diagonali, delimitatori, a barre, ecc.
 - **Algoritmo CAMMINOMIN** che, data una griglia e due celle attraversabili (origine e destinazione), calcola un cammino minimo (se esiste), restituendo la sequenza dei landmark e la lunghezza.
 - **ExperimentationSystem** che, data una griglia, ne valuta la correttezza e le prestazioni temporali e spaziali a seguito di molteplici invocazioni dell’algoritmo
