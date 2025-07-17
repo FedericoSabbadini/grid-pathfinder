@@ -182,6 +182,12 @@ public class MinimumPathCalculator {
         
         // Crea una chiave unica per la cache basata su origine, destinazione e ostacoli
         String key = origin + "->" + destination + "|" + obstacles.hashCode();
+        
+        // Controllo se in cache
+        PathResult cached = pathCache.get(key);
+        if (cached != null) {
+            return cached;
+        }
 
         FreePathsExtended  freePathsCalculator = new FreePathsExtended(grid, origin, obstacles);
         freePathsCalculator.calculateContextAndComplement();
