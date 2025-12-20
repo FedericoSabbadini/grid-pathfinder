@@ -1,0 +1,7 @@
+Tipo di griglia: SPARSE
+Righe: 30
+Colonne: 41
+Percentuale ostacoli: 0.05040650406504065
+Ostacoli generati: 62
+Seed: 24568
+Data generazione: Thu Jul 03 21:57:26 CEST 2025

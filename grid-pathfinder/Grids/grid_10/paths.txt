@@ -1,0 +1,19 @@
+# File contenente i cammini minimi calcolati
+
+  Origine: (1,0)
+  Destinazione: (7,8)
+Lunghezza cammino minimo: 11,07
+Sequenza landmark: [((1,0): 0), ((5,7): 2), ((7,8): 2)]
+Numero di chiamate ricorsive: 2
+Numero di celle di frontiera: 4
+Numero iterazioni [lF + lFD < lunghezzaMin]==false: 3
+ > Prestazioni: 45,19 ms
+■ ■ ■ ■ ■ ■ ■ ■ ■ 
+O . . . ■ . . . ■ 
+■ ■ ■ ■ . ■ ■ . ■ 
+■ . . . . . ■ . ■ 
+■ . ■ ■ ■ ■ . . ■ 
+■ . . . ■ . ■ □ ■ 
+■ ■ . ■ ■ ■ ■ . ■ 
+■ . . . . . . . D 
+■ ■ ■ ■ ■ ■ ■ ■ ■ 

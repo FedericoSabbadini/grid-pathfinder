@@ -1,0 +1,7 @@
+Tipo di griglia: RANDOM
+Righe: 12
+Colonne: 23
+Percentuale ostacoli: 0.19927536231884058
+Ostacoli generati: 55
+Seed: 0
+Data generazione: Tue Jul 08 15:08:48 CEST 2025

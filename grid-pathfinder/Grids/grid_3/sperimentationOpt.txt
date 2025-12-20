@@ -1,0 +1,125 @@
+
+========== SPERIMENTAZIONE CAMMINO MINIMO E STRUTTURE DATI ==========
+
+Griglia: DENSE [15x20]
+Celle attraversabili: 120
+Ostacoli: 60,0%
+
+
+
+----------OCCUPAZIONE--IN--MEMORIA----------
+Memoria teorica utilizzata:
+ 1. Array2D (boolean[][]):     300 bytes ( 0,29 kB)   --> Default
+ 2. BitSet               :     102 bytes ( 0,10 kB)   --> Risparmio:   66,0%
+ 3. Sparse (Set<Cell>)   :    5824 bytes ( 5,69 kB)   --> Risparmio: -1841,3%
+ 4. Compressed (byte[])  :      70 bytes ( 0,07 kB)   --> Risparmio:   76,7%
+
+
+
+-------------------ANALISI--CORRETTEZZA-------------------
+
+Test  1: (10,18)<-> (12,3)  | FreeDistance:   21,73 
+Test  2: (7,11) <-> (13,1)  | FreeDistance:   13,07 
+Test  3: (6,16) <-> (11,17) | FreeDistance: Infinity 
+Test  4: (12,19)<-> (7,16)  | FreeDistance: Infinity 
+Test  5: (12,2) <-> (1,0)   | FreeDistance: Infinity 
+Test  6: (6,4)  <-> (3,13)  | FreeDistance:   14,49 
+Test  7: (6,2)  <-> (4,14)  | FreeDistance:   19,31 
+Test  8: (11,7) <-> (11,17) | FreeDistance:   15,90 
+Test  9: (12,12)<-> (14,3)  | FreeDistance:   15,49 
+Test 10: (9,2)  <-> (3,2)   | FreeDistance:    7,66 
+
+>>> Risultato: 10/10 test corretti (100,0%)
+
+
+
+--------------------ANALISI--DISTANZA/TEMPO--------------------
+
+Test  4 | FreeDistance:   4,0000 | Tempo:   0,05 ms
+Test  6 | FreeDistance:   9,0711 | Tempo:   0,26 ms
+Test 14 | FreeDistance:   2,0000 | Tempo:   0,04 ms
+Test 20 | FreeDistance:  11,2426 | Tempo:   0,35 ms
+Test 26 | FreeDistance:  16,4853 | Tempo:   2,82 ms
+Test 30 | FreeDistance:   1,4142 | Tempo:   0,04 ms
+
+>>> Statistiche per categoria:
+  [Medie (10 <= d < 25)]:   1,58 ms (media su  2 campioni)
+  [Vicine (d < 10)     ]:   0,10 ms (media su  4 campioni)
+
+
+
+------------------------------CONFRONTO--STRUTTURE--DATI------------------------------
+
+  [  Array2D  ]
+Coppia  2: (10,14) → (11, 7) | Tempo: 0,0448 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  4: ( 1, 9) → ( 4, 5) | Tempo: 0,1373 ms | Chiamate: 5    | Frontiere: 7   | Riga16 Falsi: 3  
+Coppia  5: ( 9,14) → ( 9, 9) | Tempo: 0,0624 ms | Chiamate: 3    | Frontiere: 5   | Riga16 Falsi: 3  
+Coppia  6: (13, 4) → ( 8, 9) | Tempo: 0,1944 ms | Chiamate: 4    | Frontiere: 10  | Riga16 Falsi: 7  
+Coppia  7: ( 5, 5) → ( 8, 1) | Tempo: 0,0832 ms | Chiamate: 3    | Frontiere: 7   | Riga16 Falsi: 5  
+Coppia  9: ( 8, 8) → (14, 8) | Tempo: 0,0860 ms | Chiamate: 5    | Frontiere: 13  | Riga16 Falsi: 9  
+Coppia 10: ( 3, 9) → ( 9, 4) | Tempo: 0,1178 ms | Chiamate: 7    | Frontiere: 15  | Riga16 Falsi: 9  
+Coppia 11: (10,13) → (12,18) | Tempo: 0,1888 ms | Chiamate: 13   | Frontiere: 25  | Riga16 Falsi: 13 
+
+  [  BitSet  ]
+Coppia  2: (10,14) → (11, 7) | Tempo: 0,3245 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  4: ( 1, 9) → ( 4, 5) | Tempo: 0,1841 ms | Chiamate: 5    | Frontiere: 7   | Riga16 Falsi: 3  
+Coppia  5: ( 9,14) → ( 9, 9) | Tempo: 0,0914 ms | Chiamate: 3    | Frontiere: 5   | Riga16 Falsi: 3  
+Coppia  6: (13, 4) → ( 8, 9) | Tempo: 0,5315 ms | Chiamate: 4    | Frontiere: 10  | Riga16 Falsi: 7  
+Coppia  7: ( 5, 5) → ( 8, 1) | Tempo: 0,1506 ms | Chiamate: 3    | Frontiere: 7   | Riga16 Falsi: 5  
+Coppia  9: ( 8, 8) → (14, 8) | Tempo: 0,2103 ms | Chiamate: 5    | Frontiere: 13  | Riga16 Falsi: 9  
+Coppia 10: ( 3, 9) → ( 9, 4) | Tempo: 0,2109 ms | Chiamate: 7    | Frontiere: 15  | Riga16 Falsi: 9  
+Coppia 11: (10,13) → (12,18) | Tempo: 0,4204 ms | Chiamate: 13   | Frontiere: 25  | Riga16 Falsi: 13 
+
+  [  Sparse  ]
+Coppia  2: (10,14) → (11, 7) | Tempo: 0,7048 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  4: ( 1, 9) → ( 4, 5) | Tempo: 0,1336 ms | Chiamate: 5    | Frontiere: 7   | Riga16 Falsi: 3  
+Coppia  5: ( 9,14) → ( 9, 9) | Tempo: 0,0851 ms | Chiamate: 3    | Frontiere: 5   | Riga16 Falsi: 3  
+Coppia  6: (13, 4) → ( 8, 9) | Tempo: 1,0892 ms | Chiamate: 4    | Frontiere: 10  | Riga16 Falsi: 7  
+Coppia  7: ( 5, 5) → ( 8, 1) | Tempo: 0,1867 ms | Chiamate: 3    | Frontiere: 7   | Riga16 Falsi: 5  
+Coppia  9: ( 8, 8) → (14, 8) | Tempo: 0,1399 ms | Chiamate: 5    | Frontiere: 13  | Riga16 Falsi: 9  
+Coppia 10: ( 3, 9) → ( 9, 4) | Tempo: 0,5179 ms | Chiamate: 7    | Frontiere: 15  | Riga16 Falsi: 9  
+Coppia 11: (10,13) → (12,18) | Tempo: 0,3558 ms | Chiamate: 13   | Frontiere: 25  | Riga16 Falsi: 13 
+
+  [  Compressed  ]
+Coppia  2: (10,14) → (11, 7) | Tempo: 0,0719 ms | Chiamate: 1    | Frontiere: 0   | Riga16 Falsi: 0  
+Coppia  4: ( 1, 9) → ( 4, 5) | Tempo: 0,1014 ms | Chiamate: 5    | Frontiere: 7   | Riga16 Falsi: 3  
+Coppia  5: ( 9,14) → ( 9, 9) | Tempo: 0,1094 ms | Chiamate: 3    | Frontiere: 5   | Riga16 Falsi: 3  
+Coppia  6: (13, 4) → ( 8, 9) | Tempo: 0,3838 ms | Chiamate: 4    | Frontiere: 10  | Riga16 Falsi: 7  
+Coppia  7: ( 5, 5) → ( 8, 1) | Tempo: 0,1828 ms | Chiamate: 3    | Frontiere: 7   | Riga16 Falsi: 5  
+Coppia  9: ( 8, 8) → (14, 8) | Tempo: 0,1031 ms | Chiamate: 5    | Frontiere: 13  | Riga16 Falsi: 9  
+Coppia 10: ( 3, 9) → ( 9, 4) | Tempo: 0,1414 ms | Chiamate: 7    | Frontiere: 15  | Riga16 Falsi: 9  
+Coppia 11: (10,13) → (12,18) | Tempo: 0,2402 ms | Chiamate: 13   | Frontiere: 25  | Riga16 Falsi: 13 
+
+
+>>> CONFRONTO STATISTICHE
+   Griglia      | Tempo (ms) | Chiamate  | FrontCells  | Riga16 F 
+-----------------------------------------------------------------
+   BitSet       |       0,27 |         5 |          10 |         6
+   Array2D      |       0,11 |         5 |          10 |         6
+   Sparse       |       0,40 |         5 |          10 |         6
+   Compressed   |       0,17 |         5 |          10 |         6
+
+
+
+------------------------------ANALISI--SCALABILITA'------------------------------
+
+Griglia 10000 celle (100x100 circa):
+  Array2D    |        9,8 kB
+  BitSet     |        1,3 kB
+  Sparse     |      187,6 kB
+
+Griglia 200000 celle (447x447 circa):
+  Array2D    |      195,3 kB
+  BitSet     |       24,5 kB
+  Sparse     |     3750,1 kB
+
+Griglia 5000000 celle (2236x2236 circa):
+  Array2D    |     4882,8 kB
+  BitSet     |      610,4 kB
+  Sparse     |    93750,1 kB
+
+
+
+---------- TEMPO--DI--SPERIMENTAZIONE ----------
+
+Tempo totale: 731,743 ms

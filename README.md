@@ -41,9 +41,14 @@ L'algoritmo sfrutta:
 
 ```
 grid-pathfinder/
-├── AlgoritmiPRJ/    # Implementazione algoritmo
+├── grid-pathfinder/    # Implementazione JAVA
+|   ├── bin          # File compilati
+|   ├── src          # Codice sorgente
+|   ├── Grids        # Griglie pre-generate, già utilizzabili
 ├── Elaborato/       # Specifica del progetto
-├── Relazione/       # Relazione finale
+├── Relazione/       
+|   ├── Relazione    # Relazione finale
+|   ├── use cases    # Griglie generate cin tutti le richieste eseguite su esse.
 └── README.md
 ```
 

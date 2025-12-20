@@ -1,0 +1,39 @@
+# File contenente i cammini minimi calcolati
+
+  Origine: (4,6)
+  Destinazione: (0,0)
+Lunghezza cammino minimo: 7,66
+Sequenza landmark: [((4,6): 0), ((0,0): 1)]
+Numero di chiamate ricorsive: 1
+Numero di celle di frontiera: 0
+Numero iterazioni [lF + lFD < lunghezzaMin]==false: 0
+ > Prestazioni: 10,71 ms
+D . . . . . . . . . . . . . . . . . . . 
+. . . . ■ ■ . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . ■ ■ . . . . . . . 
+. ■ . . . . O . . . . . . . . . . . . . 
+. ■ . . . . . . . . . . . . . . ■ . . . 
+. ■ . . . . . . . . ■ ■ . . . . . . . ■ 
+. . . . . . . . . . ■ . . . . . . . ■ . 
+. . . . . . ■ ■ . . . . . . . . . ■ . . 
+. . . . . . . ■ ■ . . . . . . . . . . . 
+
+  Origine: (4,6)
+  Destinazione: (9,6)
+Lunghezza cammino minimo: 5,83
+Sequenza landmark: [((4,6): 0), ((8,5): 1), ((9,6): 1)]
+Numero di chiamate ricorsive: 3
+Numero di celle di frontiera: 26
+Numero iterazioni [lF + lFD < lunghezzaMin]==false: 24
+ > Prestazioni: 4,35 ms
+. . . . . . . . . . . . . . . . . . . . 
+. . . . ■ ■ . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . ■ ■ . . . . . . . 
+. ■ . . . . O . . . . . . . . . . . . . 
+. ■ . . . . . . . . . . . . . . ■ . . . 
+. ■ . . . . . . . . ■ ■ . . . . . . . ■ 
+. . . . . . . . . . ■ . . . . . . . ■ . 
+. . . . . □ ■ ■ . . . . . . . . . ■ . . 
+. . . . . . D ■ ■ . . . . . . . . . . . 
