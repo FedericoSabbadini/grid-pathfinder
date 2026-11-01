@@ -1,1 +1,4 @@
 /.metadata/
+
+# Eclipse workspace, not source
+.metadata/
